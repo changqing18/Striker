@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>UserCenter</title>
+</head>
+<body>
+<script>
+function getAddress() {
+    let xhr=new XMLHttpRequest();
+    xhr.onreadystatechange=function () {
+        if(xhr.readyState===4&&xhr.status===200){
+            let arr=xhr.responseText;
+            console.log(arr);
+            //TODO 将数据插入表格
+        }
+    };
+    xhr.open("GET","/servlet/usercenter",true);
+    xhr.send();
+}
+</script>
+</body>
+</html>

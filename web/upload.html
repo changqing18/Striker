@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>upload</title>
+    <script src="js/base64js.min.js"></script>
+    <script src="js/spark-md5.min.js"></script>
+</head>
+<body>
+<form id="upload" enctype="multipart/form-data" method="post" action="/servlet/upload">
+    <input type="text" id="imgname" name="imgname" hidden>
+    <label for="imgname" hidden></label>
+    <input type="file" name="file" onchange="upload(event)"><br>
+    <img id="preview" src="" width="30%" alt="Image Preview" hidden><br>
+    <input type="submit" id="submit" value="确认上传" hidden>
+</form>
+<script>
+    function upload(event) {
+        let file = event.target.files[0];
+        let type = [".jpg", ".jpeg", ".png", ".bmp", ".gif"];
+        let imgType = file.name.toLowerCase();
+        let star=imgType.lastIndexOf('.');
+        imgType=imgType.slice(star);
+        let flag = false;
+        for (let i = 0; i < type.length; i++) {
+            flag = (imgType===type[i]);
+            if (flag)
+                break;
+        }
+        if (flag) {
+            let reader = new FileReader();
+            reader.onload = function (event) {
+                console.log("Read the img is OK!");
+                let img = document.getElementById("preview");
+                img.src = this.result;
+                img.hidden = false;
+                let str=this.result.toString();
+                let start=str.indexOf('base64,');
+                str=str.slice(start+7);
+                let arr=base64js.toByteArray(str);
+                let name=SparkMD5.ArrayBuffer.hash(arr);
+                name=name+imgType;
+                document.getElementById('imgname').value=name;
+                console.log(name);
+                document.getElementById("submit").hidden=false;
+            };
+            reader.readAsDataURL(file);
+        } else {
+            alert("请上传图片文件");
+            location.reload();
+        }
+    }
+</script>
+</body>
+</html>

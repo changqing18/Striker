@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register : Striker</title>
+    <style>
+        label {
+            width: 120px;
+        }
+
+        form {
+            width: 400px;
+        }
+
+        #submit {
+            width: 280px;
+        }
+    </style>
+    <link rel="stylesheet" href="../css/user_comm.css">
+    <script src="../js/user_comm.js"></script>
+    <script src="../js/sha3.min.js"></script>
+</head>
+<body>
+<br>
+<br>
+<p>Register</p>
+<form class="login" method="post" action="/servlet/register">
+
+    <fieldset id="personal_information">
+        <ol>
+            <li>
+                <label for="name">昵称</label>
+                <input type="text" name="name" id="name" autofocus required>
+            </li>
+
+            <li>
+                <label for="email">邮箱</label>
+                <input type="email" name="email" id="email" required/>
+            </li>
+
+            <li>
+                <label for="password">密码</label>
+                <input id="password" type="password" name="password" value="" autocomplete="off"
+                       placeholder="8个字符及以上" required
+                       pattern="^\w{8,64}$"
+                       title="请输入8到20位字符，包含字母、数字以及下划线"/>
+            </li>
+            <li>
+                <label for="password_confirmation">确认密码</label>
+                <input id="password_confirmation" type="password"
+                       name="password_confirmation" value="" autocomplete="off"
+                       placeholder="请再次输入您的密码" required/>
+            </li>
+            <li><a href="login.html">已有账号？前往登录</a></li>
+            <li><input id="submit" value="Register" type="submit" onclick="return check()"></li>
+
+        </ol>
+    </fieldset>
+</form>
+<script>
+    PreUrl();
+    let arr = getRequest();
+    document.getElementById("email").value = arr[1];
+    document.getElementById("name").value = arr[2];
+    function check() {
+        let pass1 = document.getElementById("password");
+        let pass2 = document.getElementById("password_confirmation");
+        if (pass1.value !== pass2.value) {
+            alert("两次密码输入不一致！");
+            return false;
+        } else {
+            let shaObj = new jsSHA("SHA3-256", "TEXT");
+            shaObj.update(pass1.value);
+            pass1.value=pass2.value = shaObj.getHash("HEX");
+            return true;
+        }
+    }
+</script>
+</body>
+</html>
