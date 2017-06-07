@@ -6,7 +6,51 @@
     <script src="js/sha3.min.js"></script>
 </head>
 <body>
+<p>Here it is,the identity function:</p>
+<pre data-language="javascript">
+    function id(x) { return x; }
+</pre>
 <script>
+    function highlightCode(node, keywords) {
+        let text=node.textContent;
+        node.textContent="";
+        let match ,pos=0;
+        while(match=keywords.exec(text)){
+            let before=text.slice(pos,match.index);
+            node.appendChild(document.createTextNode(before));
+            let strong = document.createElement("strong");
+            strong.appendChild(document.createTextNode(match[0]));
+            node.appendChild(strong);
+            pos=keywords.lastIndex;
+        }
+        let after=text.slice(pos);
+        node.appendChild(document.createTextNode(after));
+    }
+
+    let languages={ javascript: /\b(function |return|var)\b/g /* ... etc */ };
+
+    function highlightAllCode(){
+        let pres=document.body.getElementsByTagName("pre");
+        for(let i=0;i<pres.length;i++){
+            let pre=pres[i];
+            let lang=pre.getAttribute("data-language");
+            if(languages.hasOwnProperty(lang))
+                highlightCode(pre,languages[lang]);
+        }
+    }
+    highlightAllCode();
+    
+    function buildTable(data) {
+        let table=document.createElement("table");
+        for(let i=0;i<data.length;i++){
+            let tr=document.createElement("tr");
+            tr.appendChild(document.createElement("td")).textContent=data[i].name;
+            tr.appendChild(document.createElement("td")).textContent=data[i].height;
+            tr.appendChild(document.createElement("td")).textContent=data[i].country;
+            table.appendChild(tr);
+        }
+        return table;
+    }
 
 </script>
 </body>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>UserCenter</title>
+</head>
+<body>
+<a href="password.html">修改密码</a>
+<table id="address">
+    <tr>
+        <th>姓名</th>
+        <th>电话</th>
+        <th>省份</th>
+        <th>城市</th>
+        <th>县城</th>
+        <th>详情</th>
+        <th></th>
+    </tr>
+
+</table>
+<script>
+    function ajax(method, url, callback) {
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                callback(xhr.responseText);
+            }
+        };
+        xhr.open(method, url, true);
+        xhr.send();
+    }
+    function getAddress(text) {
+        let arr = JSON.parse(text);
+        let address = document.getElementById("address");
+        for (let i = 0; i < arr.length; i++) {
+            let tr = address.appendChild(document.createElement("tr"));
+            let ar = arr[i];
+            for (let temp in ar) {
+                tr.appendChild(document.createElement("td")).textContent = ar[temp];
+            }
+            let but = tr.appendChild(document.createElement("td")).appendChild(document.createElement("button"));
+            but.textContent = "修改";
+            but.onclick = updateAddress();
+        }
+    }
+    ajax("GET", "/servlet/getaddress", getAddress());
+</script>
+</body>
+</html>
