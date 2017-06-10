@@ -16,12 +16,13 @@
         select * from address where email=#{email}
     </select>
     <insert id="addAddress" parameterType="model.Address">
-        insert into address values(#{email},#{name},#{phone},#{postcode},#{province},#{city},#{county},#{detail})
+        insert into address (email, name, phone, postcode, province, city, county, detail)
+        values(#{email},#{name},#{phone},#{postcode},#{province},#{city},#{county},#{detail})
     </insert>
-    <select id="getPassword" parameterType="String" resultType="String">
-        select password from user where email=#{email};
-    </select>
-    <update id="updatePassword" parameterType="UserInfo">
+    <update id="updatePassword" parameterType="model.UserInfo">
         update user set password=#{password} where email=#{email};
     </update>
+    <insert id="insertArticle" parameterType="model.Article">
+        insert into article (head, content, cover) VALUES (#{head},#{content},#{cover});
+    </insert>
 </mapper>

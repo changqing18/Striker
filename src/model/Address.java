@@ -4,6 +4,7 @@ package model;
  * Created by 28713 on 2017/6/1.
  */
 public class Address {
+    private int id;
     private String email;
     private String name;
     private int phone;
@@ -13,17 +14,21 @@ public class Address {
     private String county;
     private String detail;
 
-    public Address(String email, String name, int phone, int postcode,
+    public Address(int id, String email, String name, int phone, int postcode,
                    String province, String city, String county, String detail) {
+        this.id = id;
         this.email = email;
         this.name = name;
-
         this.phone = phone;
         this.postcode = postcode;
         this.province = province;
         this.city = city;
         this.county = county;
         this.detail = detail;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getEmail() {

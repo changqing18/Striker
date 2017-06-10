@@ -21,11 +21,10 @@ import java.util.List;
 @WebServlet(value = "/servlet/getaddress", name = "GetAddress")
 public class GetAddress extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        HttpSession session=request.getSession();
-//        String email=(String)session.getAttribute("email");
-//        System.out.println(email);
+        HttpSession session=request.getSession();
+        String email=(String)session.getAttribute("email");
+        System.out.println(email);
         response.setCharacterEncoding("UTF-8");
-        String email="2871348509@qq.com";
         SqlSessionFactory sqlSessionFactory=data.SessionFactoryUtil.getSqlSessionFactory();
         SqlSession sqlSession=sqlSessionFactory.openSession();
         List<Address> list=sqlSession.selectList("data.UserSqlMap.getAddress",email);

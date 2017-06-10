@@ -22,16 +22,16 @@ public class ChangePass extends HttpServlet {
         String later=request.getParameter("later");
         SqlSessionFactory sqlSessionFactory = data.SessionFactoryUtil.getSqlSessionFactory();
         SqlSession sqlSession = sqlSessionFactory.openSession();
-        HttpSession session1=request.getSession();
-        String email= (String) session1.getAttribute("email");
+        HttpSession session=request.getSession();
+        String email= (String) session.getAttribute("email");
         if(email!=null){
             String get=sqlSession.selectOne("data.UserSqlMap.getPassword",email);
             if(get.equals(old)){
                 UserInfo user=new UserInfo(null,email,later);
                 if(sqlSession.update("data.UserSqlMap.updatePassword",user)==1){
-                    //TODO 成功
+                    response.sendRedirect("/user/center.html");
                 }else{
-                    //TODO 失败
+                    response.sendRedirect("/return_info.html");
                 }
             }
         }
