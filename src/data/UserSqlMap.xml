@@ -18,10 +18,13 @@
     <insert id="addAddress" parameterType="model.Address">
         insert into address values(#{email},#{name},#{phone},#{postcode},#{province},#{city},#{county},#{detail})
     </insert>
-    <select id="getPassword" parameterType="String" resultType="String">
-        select password from user where email=#{email};
-    </select>
-    <update id="updatePassword" parameterType="UserInfo">
+    <update id="updatePassword" parameterType="model.UserInfo">
         update user set password=#{password} where email=#{email};
     </update>
+    <select id="getOrder" parameterType="String" resultType="model.Order">
+        SELECT * from orderinfo WHERE email=#{email}
+    </select>
+    <insert id="addOrder" parameterType="model.Order">
+        INSERT INTO orderinfo (addressid, payment, payornot, email, memo, tag, sumprice) VALUES (#{addressid},#{payment},#{payornot},#{email},#{memo},#{tag},#{sumprice})
+    </insert>
 </mapper>
