@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加文章</title>
+    <script src="../js/base64js.min.js"></script>
+    <script src="../js/spark-md5.min.js"></script>
+    <style>
+        img {
+            width: 252px;
+            height: 200px;
+        }
+    </style>
+    <script>
+        function append(name) {
+            let area = document.getElementById("content");
+            let text = "<img src=\"../image/";
+            area.value = area.value + "\n" + text + name + "\" >"
+        }
+
+        function addDom(num) {
+            let label = document.createElement("label");
+            let iname = document.createElement("input");
+            iname.type = "text";
+            iname.hidden = true;
+            label.htmlFor = iname.id = iname.name = num + "name";
+            let next = document.createElement("input");
+            next.type = "file";
+            next.id = next.name = num + "cover";
+            next.setAttribute("onchange", "upload(event)");
+            let parent = document.getElementById("image");
+            parent.appendChild(label);
+            parent.appendChild(iname);
+            parent.appendChild(next);
+            let nimage = document.createElement("img");
+            nimage.id = num + "preview";
+            nimage.src = "";
+            document.body.appendChild(nimage);
+        }
+        function upload(event) {
+            let file = event.target.files[0];
+            let string = event.target.id;
+            string = string.slice(0, string.length - 5);
+            let type = [".jpg", ".jpeg", ".png", ".bmp", ".gif"];
+            let imgType = file.name.toLowerCase();
+            let star = imgType.lastIndexOf('.');
+            imgType = imgType.slice(star);
+            let flag = false;
+            for (let i = 0; i < type.length; i++) {
+                flag = (imgType === type[i]);
+                if (flag)
+                    break;
+            }
+            if (flag) {
+                let reader = new FileReader();
+                reader.onload = function (event) {
+                    let img = document.getElementById(string + "preview");
+                    img.src = this.result;
+                    let str = this.result.toString();
+                    let start = str.indexOf('base64,');
+                    str = str.slice(start + 7);
+                    let arr = base64js.toByteArray(str);
+                    let name = SparkMD5.ArrayBuffer.hash(arr);
+                    name = name + imgType;
+                    console.log(name);
+                    
+                    //将图片信息放入input中
+                    document.getElementById(string + "name").value = name;
+                    if(string==0){
+                        document.getElementById("cover").value=name;
+                    }else {
+                        append(name);
+                    }
+                    
+                    //append dom start
+                    let num = parseInt(string) + 1;
+                    let next = document.getElementById(num + "name");
+                    if (next == null) {
+                        addDom(num);
+                    }
+                    //append dom end
+                };
+                reader.readAsDataURL(file);
+            } else {
+                alert("请上传图片文件");
+                location.reload();
+            }
+        }
+        function sendArticle() {
+            let xhr=new XMLHttpRequest();
+            xhr.onreadystatechange =function () {
+                if(xhr.readyState === 4 && xhr.status === 200){
+                    let form = document.getElementById("article");
+                    form.submit();
+                }
+            };
+            xhr.open("POST","/servlet/Upload",true);
+            let form=document.getElementById("image");
+            xhr.send(new FormData(form));
+        }
+
+    </script>
+</head>
+<body>
+<form id="article" class="article" method="post" action="/servlet/AddArticle">
+    <fieldset id="fieldset">
+        <ol>
+            <li>
+                <label for="head">标题</label>
+                <input type="text" name="head" id="head" required/>
+            </li>
+            <li>
+                <label>performance
+                    <input type="radio" name="type" value="1">
+                </label>
+                <label>lifestyle
+                    <input type="radio" name="type" value="2">
+                </label>
+                <label>design
+                    <input type="radio" name="type" valude="3">
+                </label>
+            </li>
+            <li>
+                <p>内容</p>
+                <label for="content"></label>
+                <textarea id="content" name="content" cols="120" rows="30"></textarea>
+            </li>
+            <li>
+                <label for="cover"></label>
+                <input type="text" id="cover" name="cover" hidden>
+            </li>
+        </ol>
+    </fieldset>
+
+</form>
+<button onclick="sendArticle()">提交</button>
+<form id="image" name="image" method="post" enctype="multipart/form-data" action="/servlet/Upload">
+    <label for="0name"></label>
+    <input type="text" id="0name" name="0name" hidden>
+    <p>cover</p>
+    <input type="file" id="0cover" name="0cover" onchange="upload(event)">
+</form>
+<img id="0preview" src="" alt="" width="200px" height="200px">
+</body>
+</html>

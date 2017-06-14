@@ -18,6 +18,7 @@
     </tr>
 
 </table>
+<a href="address.html">添加地址</a>
 <script>
     function ajax(method, url, callback) {
         let xhr = new XMLHttpRequest();
@@ -30,20 +31,31 @@
         xhr.send();
     }
     function getAddress(text) {
-        let arr = JSON.parse(text);
-        let address = document.getElementById("address");
-        for (let i = 0; i < arr.length; i++) {
-            let tr = address.appendChild(document.createElement("tr"));
-            let ar = arr[i];
-            for (let temp in ar) {
-                tr.appendChild(document.createElement("td")).textContent = ar[temp];
+        if (text != null) {
+            if (text != "nologin") {
+                let arr = text = JSON.parse(text);
+                let address = document.getElementById("address");
+                for (let i = 0; i < arr.length; i++) {
+                    let tr = address.appendChild(document.createElement("tr"));
+                    let ar = arr[i];
+                    for (let temp in ar) {
+                        if (temp !== "id")
+                            tr.appendChild(document.createElement("td")).textContent = ar[temp];
+                    }
+                    let but = tr.appendChild(document.createElement("td")).appendChild(document.createElement("button"));
+                    but.textContent = "修改";
+                    but.onclick = updateAddress();
+                }
+            } else {
+                alert("您尚未登录！");
+                window.location.href = "login.html";
             }
-            let but = tr.appendChild(document.createElement("td")).appendChild(document.createElement("button"));
-            but.textContent = "修改";
-            but.onclick = updateAddress();
         }
     }
-    ajax("GET", "/servlet/getaddress", getAddress());
+    function updateAddress() {
+
+    }
+    ajax('GET', '/servlet/GetAddress', getAddress);
 </script>
 </body>
 </html>

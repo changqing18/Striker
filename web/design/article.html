@@ -2,25 +2,63 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Striker</title>
-    <link rel="stylesheet" type="text/css" href="css/styles-min.css">
+    <title>adidas Nemeziz 17+ UltraBOOST“灰尘风暴”：鞋类：足球圣经</title>
+    <link rel="stylesheet" type="text/css" href="../css/styles-min.css">
+    <script>
+        let article=0;
+        let requests = location.search;
+        if (requests.indexOf("?") !== -1) {
+            let str = requests.substr(1).split("&");
+            article=parseInt(str[0].split("=")[1]);
+            ajax("GET","/servlet/GetArticle?article="+article,handle)
+        } else {
+            alert("error!");
+        }
+        function ajax(method, url, callback) {
+            let xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    callback(xhr.responseText);
+                }
+            };
+            xhr.open(method,url,true);
+            xhr.send();
+        }
+        function handle(text) {
+            if(text!=null){
+                let message=JSON.parse(text);
+                let head=document.getElementById("article-title");
+
+                head.textContent=message.head;
+                let content=document.getElementById("article-content");
+                content.innerHTML=message.content;
+            }else{
+                alert("error!");
+            }
+        }
+
+    </script>
 </head>
 
-<body class="ArticleList" style="position: relative; min-height: 100%; top: 0px;">
+<body class="article-page ArticleDetails" style="position: relative; min-height: 100%; top: 0px;">
 <div class="fullpage">
     <!-- header-wrap START -->
     <div class="header-holder">
         <div class="header-wrap">
             <div class="header">
                 <div class="logo">
-                    <a href="/">SoccerBible</a>
+                    <a href="/">
+                        
+                            SoccerBible
+                        
+                    </a>
                 </div>
                 <nav id="navigation" role="navigation" class="nav">
                     <ul>
                         <li>
-                            <a href="/performance">
-
-                                性能
+                            <a href="/performance/">
+                                
+                                    性能
                                 <span></span></a>
                             <div class="drop-down">
                                 <div class="side-colour"></div>
@@ -29,27 +67,37 @@
                                         <ul>
                                             <li>
                                                 <a href="/performance/football-boots/">
-                                                    足球鞋
+                                                    
+                                                        足球鞋
+                                                    
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/performance/football-apparel/">
-                                                    足球服饰
+                                                    
+                                                        足球服饰
+                                                    
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/performance/football-equipment/">
-                                                    足球设备
+                                                    
+                                                        足球设备
+                                                    
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/performance/goal-keeper-gloves/">
-                                                    目标守护者手套
+                                                    
+                                                        目标守护者手套
+                                                    
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/performance/miscellaneous/">
-                                                    杂
+                                                    
+                                                        杂
+                                                    
                                                 </a>
                                             </li>
                                         </ul>
@@ -59,41 +107,48 @@
                                             <ul>
                                                 <li>
                                                     <a href="/performance/football-boots/2017/06/adidas-womens-nemeziz-171-whiteeasy-coral/">
-                                                        <img src="image/womens-nemeziz-tab.jpg"
+                                                        <img src="../image/womens-nemeziz-tab.jpg"
                                                              alt="阿迪达斯女装Nemeziz 17.1“白/易珊瑚”"></a>
                                                     <h4>
                                                         <a href="/performance/football-boots/2017/06/adidas-womens-nemeziz-171-whiteeasy-coral/">
-                                                            阿迪达斯女装Nemeziz 17.1“白色/ E ...
+                                                            
+                                                                阿迪达斯女装Nemeziz 17.1“白色/ E ...
+                                                            
                                                         </a>
                                                     </h4>
                                                 </li>
                                                 <li>
                                                     <a href="/performance/football-apparel/2017/06/juventus-201718-adidas-home-shirt/">
-                                                        <img src="image/juve-home-tab.jpg"
-                                                             alt="尤文图斯2017/18阿迪达斯家衬衫"></a>
+                                                        <img src="../image/juve-home-tab.jpg" alt="尤文图斯2017/18阿迪达斯家衬衫"></a>
                                                     <h4>
                                                         <a href="/performance/football-apparel/2017/06/juventus-201718-adidas-home-shirt/">
-                                                            尤文图斯2017/18阿迪达斯家衬衫
+                                                            
+                                                                尤文图斯2017/18阿迪达斯家衬衫
+                                                            
                                                         </a>
                                                     </h4>
                                                 </li>
                                                 <li>
                                                     <a href="/performance/football-boots/2017/06/adidas-x-tango-17plus-purespeed-clear-grey/">
-                                                        <img src="image/x-tango-laceless-10.jpg"
+                                                        <img src="../image/x-tango-laceless-10.jpg"
                                                              alt="adidas X Tango 17+ Purespeed“Clear Grey”"></a>
                                                     <h4>
                                                         <a href="/performance/football-boots/2017/06/adidas-x-tango-17plus-purespeed-clear-grey/">
-                                                            adidas X探戈17+ Purespeed“清除...
+                                                            
+                                                                adidas X探戈17+ Purespeed“清除...
+                                                            
                                                         </a>
                                                     </h4>
                                                 </li>
                                                 <li>
                                                     <a href="/performance/football-boots/2017/06/mizuno-morelia-neo-ii-mij-print-bluesafety-yellow/">
-                                                        <img src="image/neo-yel-blu-tab.jpg"
+                                                        <img src="../image/neo-yel-blu-tab.jpg"
                                                              alt="Mizuno Morelia Neo II MIJ“打印蓝色/安全黄色”"></a>
                                                     <h4>
                                                         <a href="/performance/football-boots/2017/06/mizuno-morelia-neo-ii-mij-print-bluesafety-yellow/">
-                                                            Mizuno Morelia Neo II MIJ“Print Blu ...
+                                                            
+                                                                Mizuno Morelia Neo II MIJ“Print Blu ...
+                                                            
                                                         </a>
                                                     </h4>
                                                 </li>
@@ -103,10 +158,10 @@
                                 </div>
                             </div>
                         </li>
-                        <li>
-                            <a href="/lifestyle">
-
-                                生活方式
+                        <li class="is-active">
+                            <a href="/lifestyle/">
+                                
+                                    生活方式
                                 <span></span></a>
                             <div class="drop-down">
                                 <div class="side-colour"></div>
@@ -115,23 +170,23 @@
                                         <ul>
                                             <li>
                                                 <a href="/lifestyle/footwear/">
-
-                                                    鞋
-
+                                                    
+                                                        鞋
+                                                    
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/lifestyle/clothing/">
-
-                                                    服装
-
+                                                    
+                                                        服装
+                                                    
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/lifestyle/miscellaneous/">
-
-                                                    杂
-
+                                                    
+                                                        杂
+                                                    
                                                 </a>
                                             </li>
                                         </ul>
@@ -141,49 +196,49 @@
                                             <ul>
                                                 <li>
                                                     <a href="/lifestyle/footwear/2017/06/adidas-nemeziz-17plus-ultraboost-dust-storm/">
-                                                        <img src="image/nemeziz-ultraboost-img-tab.jpg"
+                                                        <img src="../image/nemeziz-ultraboost-img-tab.jpg"
                                                              alt="adidas Nemeziz 17+ UltraBOOST“灰尘风暴”"></a>
                                                     <h4>
                                                         <a href="/lifestyle/footwear/2017/06/adidas-nemeziz-17plus-ultraboost-dust-storm/">
-
-                                                            adidas Nemeziz 17+ UltraBOOST“粉尘
-
+                                                            
+                                                                adidas Nemeziz 17+ UltraBOOST“粉尘
+                                                            
                                                         </a>
                                                     </h4>
                                                 </li>
                                                 <li>
                                                     <a href="/lifestyle/clothing/2017/closer-look-at-the-adidas-x-kith-clothing-collection/">
-                                                        <img src="image/kith-clothing-col-7.jpg"
+                                                        <img src="../image/kith-clothing-col-7.jpg"
                                                              alt="仔细看看adidas x KITH服装系列"></a>
                                                     <h4>
                                                         <a href="/lifestyle/clothing/2017/closer-look-at-the-adidas-x-kith-clothing-collection/">
-
-                                                            仔细看看adidas x KITH Clo ...
-
+                                                            
+                                                                仔细看看adidas x KITH Clo ...
+                                                            
                                                         </a>
                                                     </h4>
                                                 </li>
                                                 <li>
                                                     <a href="/lifestyle/footwear/2017/06/kith-x-adidas-football-footwear-collection/">
-                                                        <img src="image/tab-1.jpg" alt="KITH x阿迪达斯足球鞋系列"></a>
+                                                        <img src="../image/tab-1.jpg" alt="KITH x阿迪达斯足球鞋系列"></a>
                                                     <h4>
                                                         <a href="/lifestyle/footwear/2017/06/kith-x-adidas-football-footwear-collection/">
-
-                                                            KITH x阿迪达斯足球鞋
-
+                                                            
+                                                                KITH x阿迪达斯足球鞋
+                                                            
                                                         </a>
                                                     </h4>
                                                 </li>
                                                 <li>
                                                     <a href="/lifestyle/miscellaneous/2017/brutus-for-soccerbible-magazine-a-short-film-by-jess-kohl/">
-                                                        <img src="image/tab.jpg"
+                                                        <img src="../image/tab.jpg"
                                                              alt="BRUTUS For SoccerBible Magazine |  Jess Kohl的短片"></a>
                                                     <h4>
                                                         <a href="/lifestyle/miscellaneous/2017/brutus-for-soccerbible-magazine-a-short-film-by-jess-kohl/">
-
-                                                            BRUTUS For SoccerBible Magazine |
-                                                            一个 ...
-
+                                                            
+                                                                BRUTUS For SoccerBible Magazine | 
+                                                                一个 ...
+                                                            
                                                         </a>
                                                     </h4>
                                                 </li>
@@ -194,9 +249,9 @@
                             </div>
                         </li>
                         <li>
-                            <a href="/design">
-
-                                设计
+                            <a href="/design/">
+                                
+                                    设计
                                 <span></span></a>
                             <div class="drop-down">
                                 <div class="side-colour"></div>
@@ -205,37 +260,37 @@
                                         <ul>
                                             <li>
                                                 <a href="/design/art-and-illustration/">
-
-                                                    艺术和插图
-
+                                                    
+                                                        艺术和插图
+                                                    
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/design/books-and-magazines/">
-
-                                                    书籍和杂志
-
+                                                    
+                                                        书籍和杂志
+                                                    
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/design/product-design/">
-
-                                                    产品设计
-
+                                                    
+                                                        产品设计
+                                                    
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/design/photography/">
-
-                                                    摄影
-
+                                                    
+                                                        摄影
+                                                    
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/design/miscellaneous/">
-
-                                                    杂
-
+                                                    
+                                                        杂
+                                                    
                                                 </a>
                                             </li>
                                         </ul>
@@ -245,50 +300,49 @@
                                             <ul>
                                                 <li>
                                                     <a href="/design/photography/2017/06/ucl-final-from-the-streets-to-the-seats/">
-                                                        <img src="image/ucl-final-fans-tab.jpg"
-                                                             alt="UCL决赛|  从街道到座位"></a>
+                                                        <img src="../image/ucl-final-fans-tab.jpg" alt="UCL决赛|  从街道到座位"></a>
                                                     <h4>
                                                         <a href="/design/photography/2017/06/ucl-final-from-the-streets-to-the-seats/">
-
-                                                            UCL决赛|
-                                                            从街道到...
-
+                                                            
+                                                                UCL决赛| 
+                                                                从街道到...
+                                                            
                                                         </a>
                                                     </h4>
                                                 </li>
                                                 <li>
                                                     <a href="/design/photography/2017/06/framed-toulon-tournament-england-v-japan/">
-                                                        <img src="image/tab(1).jpg" alt="框架|  土伦赛：英格兰v日本"></a>
+                                                        <img src="../image/tab(1).jpg" alt="框架|  土伦赛：英格兰v日本"></a>
                                                     <h4>
                                                         <a href="/design/photography/2017/06/framed-toulon-tournament-england-v-japan/">
-
-                                                            框架|
-                                                            土伦赛：英格兰
-
+                                                            
+                                                                框架| 
+                                                                土伦赛：英格兰
+                                                            
                                                         </a>
                                                     </h4>
                                                 </li>
                                                 <li>
                                                     <a href="/design/photography/2017/06/framed-wucl-final-lyon-vs-psg/">
-                                                        <img src="image/wucl-final-img-tab.jpg"
+                                                        <img src="../image/wucl-final-img-tab.jpg"
                                                              alt="框架|  WUCL决赛：里昂vs PSG"></a>
                                                     <h4>
                                                         <a href="/design/photography/2017/06/framed-wucl-final-lyon-vs-psg/">
-
-                                                            框架|
-                                                            WUCL决赛：里昂vs PSG
-
+                                                            
+                                                                框架| 
+                                                                WUCL决赛：里昂vs PSG
+                                                            
                                                         </a>
                                                     </h4>
                                                 </li>
                                                 <li>
                                                     <a href="/design/photography/2017/05/come-on-united-do-it-for-manchester-the-story-behind-the-lens/">
-                                                        <img src="image/tab(2).jpg" alt="“来联合，为曼彻斯特做”|  镜头背后的故事"></a>
+                                                        <img src="../image/tab(2).jpg" alt="“来联合，为曼彻斯特做”|  镜头背后的故事"></a>
                                                     <h4>
                                                         <a href="/design/photography/2017/05/come-on-united-do-it-for-manchester-the-story-behind-the-lens/">
-
-                                                            “来联合，为Mancheste做...
-
+                                                            
+                                                                “来联合，为Mancheste做...
+                                                            
                                                         </a>
                                                     </h4>
                                                 </li>
@@ -300,8 +354,8 @@
                         </li>
                         <li class="last">
                             <a>
-
-                                更多
+                                
+                                    更多
                                 <span></span></a>
                             <div class="drop-down">
                                 <div class="side-colour"></div>
@@ -310,58 +364,58 @@
                                         <ul>
                                             <li>
                                                 <a href="/boot-stats/">
-
-                                                    启动统计
-
+                                                    
+                                                        启动统计
+                                                    
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/soccerbible-tv/">
-
-                                                    足球电视
-
+                                                    
+                                                        足球电视
+                                                    
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/boot-spotting/">
-
-                                                    引导点
-
+                                                    
+                                                        引导点
+                                                    
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/competitions/">
-
-                                                    比赛
-
+                                                    
+                                                        比赛
+                                                    
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/miscellaneous/">
-
-                                                    杂
-
+                                                    
+                                                        杂
+                                                    
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/boot-spy/">
-
-                                                    引导间谍
-
+                                                    
+                                                        引导间谍
+                                                    
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/interviews/">
-
-                                                    面试
-
+                                                    
+                                                        面试
+                                                    
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/advertising-branding/">
-
-                                                    广告和品牌
-
+                                                    
+                                                        广告和品牌
+                                                    
                                                 </a>
                                             </li>
                                         </ul>
@@ -371,49 +425,49 @@
                                             <ul>
                                                 <li>
                                                     <a href="/boot-spotting/2017/06/05/global-boot-spotting/">
-                                                        <img src="image/bs-5-6-17-tab.jpg" alt="全球引导点">
+                                                        <img src="../image/bs-5-6-17-tab.jpg" alt="全球引导点">
                                                     </a>
                                                     <h4>
                                                         <a href="/boot-spotting/2017/06/05/global-boot-spotting/">
-
-                                                            全球启动发现05/06/2017
-
+                                                            
+                                                                全球启动发现05/06/2017
+                                                            
                                                         </a>
                                                     </h4>
                                                 </li>
                                                 <li>
                                                     <a href="/boot-spotting/2017/05/30/global-boot-spotting/">
-                                                        <img src="image/bs-30-05-17-tab.jpg" alt="全球引导点">
+                                                        <img src="../image/bs-30-05-17-tab.jpg" alt="全球引导点">
                                                     </a>
                                                     <h4>
                                                         <a href="/boot-spotting/2017/05/30/global-boot-spotting/">
-
-                                                            全球启动30/05/2017
-
+                                                            
+                                                                全球启动30/05/2017
+                                                            
                                                         </a>
                                                     </h4>
                                                 </li>
                                                 <li>
                                                     <a href="/boot-spotting/2017/05/22/global-boot-spotting/">
-                                                        <img src="image/bs2205-tb.jpg" alt="全球引导点">
+                                                        <img src="../image/bs2205-tb.jpg" alt="全球引导点">
                                                     </a>
                                                     <h4>
                                                         <a href="/boot-spotting/2017/05/22/global-boot-spotting/">
-
-                                                            全球启动发现22/05/2017
-
+                                                            
+                                                                全球启动发现22/05/2017
+                                                            
                                                         </a>
                                                     </h4>
                                                 </li>
                                                 <li>
                                                     <a href="/boot-spotting/2017/05/15/global-boot-spotting/">
-                                                        <img src="image/bs-15-05-17-tab.jpg" alt="全球引导点">
+                                                        <img src="../image/bs-15-05-17-tab.jpg" alt="全球引导点">
                                                     </a>
                                                     <h4>
                                                         <a href="/boot-spotting/2017/05/15/global-boot-spotting/">
-
-                                                            全球启动发现15/05/2017
-
+                                                            
+                                                                全球启动发现15/05/2017
+                                                            
                                                         </a>
                                                     </h4>
                                                 </li>
@@ -425,16 +479,16 @@
                         </li>
                         <li>
                             <a href="/showroom/">
-
-                                陈列室
-
+                                
+                                    陈列室
+                                
                             </a>
                         </li>
                         <li>
-                            <a href="/store" target="_blank">
-
-                                商店
-
+                            <a href="/store/" target="_blank">
+                                
+                                    商店
+                                
                             </a>
                         </li>
                     </ul>
@@ -448,11 +502,10 @@
                 <div class="search">
                     <form class="navbar-form" action="/search/" method="post">
                         <label for="search">搜索</label>
-                        <input type="text" name="search" id="search" class="search-query span2"
-                               placeholder="Search">
-
-                        <input type="submit" value="搜索">
-
+                        <input type="text" name="search" id="search" class="search-query span2" placeholder="Search">
+                        
+                            <input type="submit" value="搜索">
+                        
                     </form>
                 </div>
             </div>
@@ -461,33 +514,12 @@
     <!-- header-wrap END -->
 
     <div id="main" role="main" class="main">
-        <section class="article articles-hero">
-            <div class="inner">
-                <div class="article-img">
-                    <a href="/lifestyle/article.html?id=2">
-                        <img src="image/cd889372a1791c85300183dcd61a82f2.jpg" class="hidden-xs" alt="BALR. x Fernando Torres Lookbook">
-                    </a>
-                    <a href="/lifestyle/article.html?id=2">
-                        <img src="image/cd889372a1791c85300183dcd61a82f2.jpg" class="visible-xs" alt="BALR. x Fernando Torres Lookbook">
-                    </a>
-                </div>
-                <div class="article-details">
-                    <h1 class="article-title"><a href="/lifestyle/article.html?id=2">BALR. x Fernando Torres Lookbook</a></h1>
-                </div>
-            </div>
-        </section>
-
         <div class="row">
-            <section id="articles-list" class="articles-list">
-            </section>
-            <div class="row clearfix">
-                <div class="page-navigation">
-                    <div class="nopadding col-xs-12 col-sm-12">
-                        <div class="holder next center">
-                            <a href="index.html?page=2">
-                                下一页
-                                <span class="arrow"></span></a>
-                        </div>
+            <div class="sidebar-first">
+                <div class="sidebar-first-inner ">
+                    <h1 id="article-title" class="article-title">
+                    </h1>
+                    <div id="article-content" class="article-content">
                     </div>
                 </div>
             </div>
@@ -495,54 +527,5 @@
     </div>
 </div>
 </body>
-<script>
 
-    function ajax(method, url, callback) {
-        let xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                callback(xhr.responseText);
-            }
-        };
-        xhr.open(method, url, true);
-        xhr.send();
-    }
-
-    function showList(text) {
-        if (text != null) {
-            let arr = JSON.parse(text);
-            for (let i = 0; i < arr.length; i++) {
-                let article = document.createElement("div");
-                article.className = "article";
-                document.getElementById("articles-list").appendChild(article);
-                let img = article.appendChild(document.createElement("div"));
-                img.className = "article-img";
-                let aHref = img.appendChild(document.createElement("a"));
-                let aimg = aHref.appendChild(document.createElement("img"));
-
-                let detail = document.createElement("div");
-                detail.className = "article-details";
-                article.appendChild(detail);
-                let h3 = detail.appendChild(document.createElement("h3"));
-                h3.className = "article-title";
-                let h3a = h3.appendChild(document.createElement("a"));
-                aHref.href = h3a.href = "article.html?article=" + arr[i]["id"];
-                aimg.alt = h3a.textContent = arr[i]["head"];
-                aimg.src = "/image/" + arr[i]["cover"];
-            }
-        }
-    }
-    function pageNo() {
-        let page = 1;
-        let requests = location.search;
-        if (requests.indexOf("?") !== -1) {
-            let str = requests.substr(1).split("&");
-            page = parseInt(str[0].split("=")[1]);
-        }
-        if (!isNaN(page)) {
-            ajax("GET", "/servlet/GetArticleAll?page=" + page, showList)
-        }
-    }
-    pageNo();
-</script>
 </html>

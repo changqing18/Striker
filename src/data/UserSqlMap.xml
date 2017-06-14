@@ -16,7 +16,8 @@
         select * from address where email=#{email}
     </select>
     <insert id="addAddress" parameterType="model.Address">
-        insert into address values(#{email},#{name},#{phone},#{postcode},#{province},#{city},#{county},#{detail})
+        insert into address (email, name, phone, postcode, province, city, county, detail)
+        values(#{email},#{name},#{phone},#{postcode},#{province},#{city},#{county},#{detail})
     </insert>
     <update id="updatePassword" parameterType="model.UserInfo">
         update user set password=#{password} where email=#{email};
@@ -27,4 +28,16 @@
     <insert id="addOrder" parameterType="model.Order">
         INSERT INTO orderinfo (addressid, payment, payornot, email, memo, tag, sumprice) VALUES (#{addressid},#{payment},#{payornot},#{email},#{memo},#{tag},#{sumprice})
     </insert>
+    <insert id="insertArticle" parameterType="model.Article">
+        insert into article (type,head, cover,content) VALUES (#{type},#{head},#{cover},#{content});
+    </insert>
+    <select id="getArticle" parameterType="int" resultType="model.Article">
+        select * from article where id=#{id};
+    </select>
+    <select id="getArticleInfo" parameterType="int" resultType="model.ArticleInfo">
+        select id, head, cover from article LIMIT #{start}, 12;
+    </select>
+    <select id="getArticleWT" parameterType="model.ArticleType" resultType="model.ArticleInfo">
+        select id, head, cover from article where type=#{type} LIMIT #{start},12;
+    </select>
 </mapper>

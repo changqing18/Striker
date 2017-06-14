@@ -11,15 +11,15 @@ import java.io.IOException;
 /**
  * Created by 28713 on 2017/5/31.
  */
-@WebServlet(value = "/servlet/login", name = "Login")
+@WebServlet(value = "/servlet/Login", name = "Login")
 public class Login extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         SqlSessionFactory sqlSessionFactory = data.SessionFactoryUtil.getSqlSessionFactory();
-        SqlSession session = sqlSessionFactory.openSession();
-        String getPassword = session.selectOne("data.UserSqlMap.getPassword", email);
-        session.close();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        String getPassword = sqlSession.selectOne("data.UserSqlMap.getPassword", email);
+        sqlSession.close();
         if (getPassword == null) {
             response.sendRedirect("/return_info.html?info=31");//不存在该用户
         } else if (!password.equals(getPassword)) {
@@ -41,8 +41,8 @@ public class Login extends HttpServlet {
             cookie.setPath("/");
             response.addCookie(cookie);
 
-            HttpSession session1 = request.getSession();
-            session1.setAttribute("Email", email);
+            HttpSession session = request.getSession();
+            session.setAttribute("email", email);
             response.sendRedirect(preUrl);
         }
     }
