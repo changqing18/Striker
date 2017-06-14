@@ -9,7 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
@@ -19,17 +18,17 @@ import java.io.IOException;
 public class AddArticle extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        System.out.println("AddArticle run!");
+
         String head = request.getParameter("head");
+        int type = Integer.parseInt(request.getParameter("type"));
         String content = request.getParameter("content");
         String cover = request.getParameter("cover");
-        Article article=new Article(-1,head,content,cover);
+        Article article = new Article(-1, type, head, cover, content);
 
-        SqlSessionFactory sqlSessionFactory=data.SessionFactoryUtil.getSqlSessionFactory();
-        SqlSession sqlSession=sqlSessionFactory.openSession();
+        SqlSessionFactory sqlSessionFactory = data.SessionFactoryUtil.getSqlSessionFactory();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
         sqlSession.insert("data.UserSqlMap.insertArticle", article);
         sqlSession.commit();
         response.sendRedirect("/admin/addarticle.html");
     }
-
 }

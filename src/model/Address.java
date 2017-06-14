@@ -7,14 +7,14 @@ public class Address {
     private int id;
     private String email;
     private String name;
-    private int phone;
+    private long phone;
     private int postcode;
     private String province;
     private String city;
     private String county;
     private String detail;
 
-    public Address(int id, String email, String name, int phone, int postcode,
+    public Address(int id, String email, String name, long phone, int postcode,
                    String province, String city, String county, String detail) {
         this.id = id;
         this.email = email;
@@ -39,7 +39,7 @@ public class Address {
         return name;
     }
 
-    public int getPhone() {
+    public long getPhone() {
         return phone;
     }
 

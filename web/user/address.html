@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加地址</title>
+    <link rel="stylesheet" href="../css/user_comm.css">
+    <style>
+        label {
+            width: 120px;
+        }
+
+        form {
+            width: 500px;
+        }
+
+        #submit {
+            width: 280px;
+        }</style>
+
+</head>
+<body>
+<form method="post" action="/servlet/address">
+    <fieldset id="personal_information">
+        <ol>
+            <li>
+                <label for="name">姓名</label>
+                <input type="text" name="name" id="name" required/>
+            </li>
+            <li>
+                <label for="phone">手机号</label>
+                <input  type="text" id="phone" name="phone" autocomplete="off" required/>
+            </li>
+            <li>
+                <label for="postcode">邮政编码</label>
+                <input type="text" id="postcode" name="postcode">
+            </li>
+            <li>
+                <label for="province">省</label>
+                <input type="text" id="province" name="province">
+            </li>
+            <li>
+                <label for="city">市</label>
+                <input type="text" id="city" name="city">
+            </li>
+            <li>
+                <label for="county">县</label>
+                <input type="text" id="county" name="county">
+            </li>
+            <li>
+                <label for="detail">详细地址</label>
+                <input type="text" id="detail" name="detail">
+            </li>
+            <li><input id="submit" value="提交" type="submit"></li>
+        </ol>
+    </fieldset>
+</form>
+</body>
+</html>

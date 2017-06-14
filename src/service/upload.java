@@ -24,8 +24,8 @@ import java.util.List;
 public class upload extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Logger logger = LogManager.getLogger();
-//        String savePath = getServletContext().getRealPath("/image");
-        String savePath="D:\\IdeaProjects\\Striker\\web\\image\\";
+        String savePath = getServletContext().getRealPath("/image");
+        savePath=savePath+"/";
         response.setCharacterEncoding("UTF-8");
         try {
             DiskFileItemFactory factory = new DiskFileItemFactory();
@@ -33,7 +33,7 @@ public class upload extends HttpServlet {
             upload.setHeaderEncoding("UTF-8");
             if (!ServletFileUpload.isMultipartContent(request)) {
                 logger.error("isMultipartContent: false");
-                response.sendRedirect("/return_info.html?info=-1");
+                response.setStatus(500);
                 return;
             }
             List<FileItem> list = upload.parseRequest(request);
@@ -58,15 +58,12 @@ public class upload extends HttpServlet {
                     item.delete();
                 } else {
                     logger.info("This is not an image file");
-                    response.sendRedirect("/return_info.html?info=11");
                     return;
                 }
             }
-            response.sendRedirect("/return_info.html?info=10");
-            return;
         } catch (Exception e) {
             logger.error(e);
-            response.sendRedirect("/return_info.html?info=-1");
+            response.setStatus(500);
         }
     }
 }

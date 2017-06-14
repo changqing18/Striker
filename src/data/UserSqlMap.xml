@@ -23,6 +23,15 @@
         update user set password=#{password} where email=#{email};
     </update>
     <insert id="insertArticle" parameterType="model.Article">
-        insert into article (head, content, cover) VALUES (#{head},#{content},#{cover});
+        insert into article (type,head, cover,content) VALUES (#{type},#{head},#{cover},#{content});
     </insert>
+    <select id="getArticle" parameterType="int" resultType="model.Article">
+        select * from article where id=#{id};
+    </select>
+    <select id="getArticleInfo" parameterType="int" resultType="model.ArticleInfo">
+        select id, head, cover from article LIMIT #{start}, 12;
+    </select>
+    <select id="getArticleWT" parameterType="model.ArticleType" resultType="model.ArticleInfo">
+        select id, head, cover from article where type=#{type} LIMIT #{start},12;
+    </select>
 </mapper>

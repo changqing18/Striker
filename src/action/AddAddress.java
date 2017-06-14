@@ -15,22 +15,25 @@ import java.io.IOException;
 /**
  * Created by 28713 on 2017/6/8.
  */
-@WebServlet(name = "AddAddress")
+@WebServlet(value = "/servlet/address", name = "AddAddress")
 public class AddAddress extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        HttpSession session=request.getSession();
-        String email=(String)session.getAttribute("email");
-        String name=request.getParameter("name");
-        int phone=Integer.parseInt(request.getParameter("phone"));
-        int postcode=Integer.parseInt(request.getParameter("postcode"));
-        String province=request.getParameter("province");
-        String city=request.getParameter("city");
-        String county=request.getParameter("county");
-        String detail=request.getParameter("detail");
-        Address address=new Address(0,email,name,phone,postcode,province,city,county,detail);
-        SqlSessionFactory sqlSessionFactory=data.SessionFactoryUtil.getSqlSessionFactory();
-        SqlSession sqlSession=sqlSessionFactory.openSession();
-        sqlSession.insert("data.UserSqlMap.addAddress",address);
+        HttpSession session = request.getSession();
+        String email = (String) session.getAttribute("email");
+
+        String name = request.getParameter("name");
+        long phone = Long.parseLong(request.getParameter("phone"));
+        int postcode = Integer.parseInt(request.getParameter("postcode"));
+        String province = request.getParameter("province");
+        String city = request.getParameter("city");
+        String county = request.getParameter("county");
+        String detail = request.getParameter("detail");
+        Address address = new Address(0, email, name, phone, postcode, province, city, county, detail);
+        SqlSessionFactory sqlSessionFactory = data.SessionFactoryUtil.getSqlSessionFactory();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        sqlSession.insert("data.UserSqlMap.addAddress", address);
+        sqlSession.commit();
+        response.sendRedirect("/user/center.html");
     }
 }

@@ -15,22 +15,23 @@ import java.io.IOException;
 /**
  * Created by 28713 on 2017/6/6.
  */
-@WebServlet(value="/servlet/password", name = "ChangePasswd")
+@WebServlet(value = "/servlet/password", name = "ChangePasswd")
 public class ChangePass extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String old=request.getParameter("old");
-        String later=request.getParameter("later");
+        String old = request.getParameter("old");
+        String later = request.getParameter("later");
         SqlSessionFactory sqlSessionFactory = data.SessionFactoryUtil.getSqlSessionFactory();
         SqlSession sqlSession = sqlSessionFactory.openSession();
-        HttpSession session=request.getSession();
-        String email= (String) session.getAttribute("email");
-        if(email!=null){
-            String get=sqlSession.selectOne("data.UserSqlMap.getPassword",email);
-            if(get.equals(old)){
-                UserInfo user=new UserInfo(null,email,later);
-                if(sqlSession.update("data.UserSqlMap.updatePassword",user)==1){
+        HttpSession session = request.getSession();
+        String email = (String) session.getAttribute("email");
+        if (email != null) {
+            String get = sqlSession.selectOne("data.UserSqlMap.getPassword", email);
+            if (get.equals(old)) {
+                UserInfo user = new UserInfo(null, email, later);
+                if (sqlSession.update("data.UserSqlMap.updatePassword", user) == 1) {
+                    sqlSession.commit();
                     response.sendRedirect("/user/center.html");
-                }else{
+                } else {
                     response.sendRedirect("/return_info.html");
                 }
             }
