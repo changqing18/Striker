@@ -528,7 +528,7 @@
             page = parseInt(str[0].split("=")[1]);
         }
         if (!isNaN(page)) {
-            ajax("GET", "/servlet/getarticlewt?type=design&page=" + page, showList)
+            ajax("GET", "/servlet/GetArticleWT?type=design&page=" + page, showList)
         }
     }
     pageNo();

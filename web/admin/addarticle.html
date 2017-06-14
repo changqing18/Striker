@@ -94,7 +94,7 @@
                     form.submit();
                 }
             };
-            xhr.open("POST","/servlet/upload",true);
+            xhr.open("POST","/servlet/Upload",true);
             let form=document.getElementById("image");
             xhr.send(new FormData(form));
         }
@@ -102,7 +102,7 @@
     </script>
 </head>
 <body>
-<form id="article" class="article" method="post" action="/servlet/addarticle">
+<form id="article" class="article" method="post" action="/servlet/AddArticle">
     <fieldset id="fieldset">
         <ol>
             <li>
@@ -134,7 +134,7 @@
 
 </form>
 <button onclick="sendArticle()">提交</button>
-<form id="image" name="image" method="post" enctype="multipart/form-data" action="/servlet/upload">
+<form id="image" name="image" method="post" enctype="multipart/form-data" action="/servlet/Upload">
     <label for="0name"></label>
     <input type="text" id="0name" name="0name" hidden>
     <p>cover</p>

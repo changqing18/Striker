@@ -11,7 +11,7 @@ import java.io.IOException;
 /**
  * Created by 28713 on 2017/5/31.
  */
-@WebServlet(value = "/servlet/login", name = "Login")
+@WebServlet(value = "/servlet/Login", name = "Login")
 public class Login extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");

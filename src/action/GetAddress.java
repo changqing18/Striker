@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Created by 28713 on 2017/6/1.
  */
-@WebServlet(value = "/servlet/getaddress", name = "GetAddress")
+@WebServlet(value = "/servlet/GetAddress", name = "GetAddress")
 public class GetAddress extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setCharacterEncoding("UTF-8");

@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Created by 28713 on 2017/6/13.
  */
-@WebServlet(value = "/servlet/getarticlea", name = "GetArticleAll")
+@WebServlet(value = "/servlet/GetArticleAll", name = "GetArticleAll")
 public class GetArticleAll extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setCharacterEncoding("UTF-8");
@@ -28,7 +28,7 @@ public class GetArticleAll extends HttpServlet {
 
         SqlSessionFactory sqlSessionFactory = data.SessionFactoryUtil.getSqlSessionFactory();
         SqlSession sqlSession = sqlSessionFactory.openSession();
-        List<ArticleInfo> articles = sqlSession.selectList("data.UserSqlMap.getArticleInfo", start);
+        List<ArticleInfo> articles = sqlSession.selectList("data.UserSqlMap.getGoodInfo", start);
 
         Gson gson = new Gson();
         PrintWriter out = response.getWriter();

@@ -16,7 +16,7 @@ import java.io.IOException;
 /**
  * Created by 28713 on 2017/5/31.
  */
-@WebServlet(value = "/servlet/register", name = "Register")
+@WebServlet(value = "/servlet/Register", name = "Register")
 public class Register extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UserInfo userInfo = new UserInfo(request.getParameter("name"),

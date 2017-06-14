@@ -5,12 +5,12 @@
     <title>adidas Nemeziz 17+ UltraBOOST“灰尘风暴”：鞋类：足球圣经</title>
     <link rel="stylesheet" type="text/css" href="css/styles-min.css">
     <script>
-        let article=0;
+        let article = 0;
         let requests = location.search;
         if (requests.indexOf("?") !== -1) {
             let str = requests.substr(1).split("&");
-            article=parseInt(str[0].split("=")[1]);
-            ajax("GET","/servlet/getarticle?article="+article,handle)//TODO
+            article = parseInt(str[0].split("=")[1]);
+            ajax("GET", "/servlet/GetArticle?article=" + article, handle)
         } else {
             alert("error!");
         }
@@ -21,17 +21,17 @@
                     callback(xhr.responseText);
                 }
             };
-            xhr.open(method,url,true);
+            xhr.open(method, url, true);
             xhr.send();
         }
         function handle(text) {
-            if(text!=null){
-                let message=JSON.parse(text);
-                let head=document.getElementById("article-title");
-                head.textContent=message.head;
-                let content=document.getElementById("article-content");
-                content.innerHTML=message.content;
-            }else{
+            if (text != null) {
+                let message = JSON.parse(text);
+                let head = document.getElementById("article-title");
+                head.textContent = message.head;
+                let content = document.getElementById("article-content");
+                content.innerHTML = message.content;
+            } else {
                 alert("error!");
             }
         }
@@ -47,18 +47,15 @@
             <div class="header">
                 <div class="logo">
                     <a href="/">
-                        <font>
-                            <font>SoccerBible</font>
-                        </font>
+                        SoccerBible
                     </a>
                 </div>
                 <nav id="navigation" role="navigation" class="nav">
                     <ul>
                         <li>
                             <a href="/performance/">
-                                <font>
-                                    <font>性能</font>
-                                </font><span></span></a>
+                                性能
+                                <span></span></a>
                             <div class="drop-down">
                                 <div class="side-colour"></div>
                                 <div class="inner-holder">
@@ -66,37 +63,27 @@
                                         <ul>
                                             <li>
                                                 <a href="/performance/football-boots/">
-                                                    <font>
-                                                        <font>足球鞋</font>
-                                                    </font>
+                                                    足球鞋
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/performance/football-apparel/">
-                                                    <font>
-                                                        <font>足球服饰</font>
-                                                    </font>
+                                                    足球服饰
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/performance/football-equipment/">
-                                                    <font>
-                                                        <font>足球设备</font>
-                                                    </font>
+                                                    足球设备
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/performance/goal-keeper-gloves/">
-                                                    <font>
-                                                        <font>目标守护者手套</font>
-                                                    </font>
+                                                    目标守护者手套
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/performance/miscellaneous/">
-                                                    <font>
-                                                        <font>杂</font>
-                                                    </font>
+                                                    杂
                                                 </a>
                                             </li>
                                         </ul>
@@ -110,9 +97,7 @@
                                                              alt="阿迪达斯女装Nemeziz 17.1“白/易珊瑚”"></a>
                                                     <h4>
                                                         <a href="/performance/football-boots/2017/06/adidas-womens-nemeziz-171-whiteeasy-coral/">
-                                                            <font>
-                                                                <font>阿迪达斯女装Nemeziz 17.1“白色/ E ...</font>
-                                                            </font>
+                                                            阿迪达斯女装Nemeziz 17.1“白色/ E ...
                                                         </a>
                                                     </h4>
                                                 </li>
@@ -121,9 +106,7 @@
                                                         <img src="../image/juve-home-tab.jpg" alt="尤文图斯2017/18阿迪达斯家衬衫"></a>
                                                     <h4>
                                                         <a href="/performance/football-apparel/2017/06/juventus-201718-adidas-home-shirt/">
-                                                            <font>
-                                                                <font>尤文图斯2017/18阿迪达斯家衬衫</font>
-                                                            </font>
+                                                            尤文图斯2017/18阿迪达斯家衬衫
                                                         </a>
                                                     </h4>
                                                 </li>
@@ -133,9 +116,7 @@
                                                              alt="adidas X Tango 17+ Purespeed“Clear Grey”"></a>
                                                     <h4>
                                                         <a href="/performance/football-boots/2017/06/adidas-x-tango-17plus-purespeed-clear-grey/">
-                                                            <font>
-                                                                <font>adidas X探戈17+ Purespeed“清除...</font>
-                                                            </font>
+                                                            adidas X探戈17+ Purespeed“清除...
                                                         </a>
                                                     </h4>
                                                 </li>
@@ -145,9 +126,7 @@
                                                              alt="Mizuno Morelia Neo II MIJ“打印蓝色/安全黄色”"></a>
                                                     <h4>
                                                         <a href="/performance/football-boots/2017/06/mizuno-morelia-neo-ii-mij-print-bluesafety-yellow/">
-                                                            <font>
-                                                                <font>Mizuno Morelia Neo II MIJ“Print Blu ...</font>
-                                                            </font>
+                                                            Mizuno Morelia Neo II MIJ“Print Blu ...
                                                         </a>
                                                     </h4>
                                                 </li>
@@ -159,9 +138,9 @@
                         </li>
                         <li class="is-active">
                             <a href="/lifestyle/">
-                                <font>
-                                    <font>生活方式</font>
-                                </font><span></span></a>
+
+                                生活方式
+                                <span></span></a>
                             <div class="drop-down">
                                 <div class="side-colour"></div>
                                 <div class="inner-holder">
@@ -169,23 +148,23 @@
                                         <ul>
                                             <li>
                                                 <a href="/lifestyle/footwear/">
-                                                    <font>
-                                                        <font>鞋</font>
-                                                    </font>
+
+                                                    鞋
+
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/lifestyle/clothing/">
-                                                    <font>
-                                                        <font>服装</font>
-                                                    </font>
+
+                                                    服装
+
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/lifestyle/miscellaneous/">
-                                                    <font>
-                                                        <font>杂</font>
-                                                    </font>
+
+                                                    杂
+
                                                 </a>
                                             </li>
                                         </ul>
@@ -199,9 +178,9 @@
                                                              alt="adidas Nemeziz 17+ UltraBOOST“灰尘风暴”"></a>
                                                     <h4>
                                                         <a href="/lifestyle/footwear/2017/06/adidas-nemeziz-17plus-ultraboost-dust-storm/">
-                                                            <font>
-                                                                <font>adidas Nemeziz 17+ UltraBOOST“粉尘</font>
-                                                            </font>
+
+                                                            adidas Nemeziz 17+ UltraBOOST“粉尘
+
                                                         </a>
                                                     </h4>
                                                 </li>
@@ -211,9 +190,9 @@
                                                              alt="仔细看看adidas x KITH服装系列"></a>
                                                     <h4>
                                                         <a href="/lifestyle/clothing/2017/closer-look-at-the-adidas-x-kith-clothing-collection/">
-                                                            <font>
-                                                                <font>仔细看看adidas x KITH Clo ...</font>
-                                                            </font>
+
+                                                            仔细看看adidas x KITH Clo ...
+
                                                         </a>
                                                     </h4>
                                                 </li>
@@ -222,9 +201,9 @@
                                                         <img src="../image/tab-1.jpg" alt="KITH x阿迪达斯足球鞋系列"></a>
                                                     <h4>
                                                         <a href="/lifestyle/footwear/2017/06/kith-x-adidas-football-footwear-collection/">
-                                                            <font>
-                                                                <font>KITH x阿迪达斯足球鞋</font>
-                                                            </font>
+
+                                                            KITH x阿迪达斯足球鞋
+
                                                         </a>
                                                     </h4>
                                                 </li>
@@ -234,10 +213,10 @@
                                                              alt="BRUTUS For SoccerBible Magazine |  Jess Kohl的短片"></a>
                                                     <h4>
                                                         <a href="/lifestyle/miscellaneous/2017/brutus-for-soccerbible-magazine-a-short-film-by-jess-kohl/">
-                                                            <font>
-                                                                <font>BRUTUS For SoccerBible Magazine | </font>
-                                                                <font>一个 ...</font>
-                                                            </font>
+
+                                                            BRUTUS For SoccerBible Magazine |
+                                                            一个 ...
+
                                                         </a>
                                                     </h4>
                                                 </li>
@@ -249,9 +228,9 @@
                         </li>
                         <li>
                             <a href="/design/">
-                                <font>
-                                    <font>设计</font>
-                                </font><span></span></a>
+
+                                设计
+                                <span></span></a>
                             <div class="drop-down">
                                 <div class="side-colour"></div>
                                 <div class="inner-holder">
@@ -259,37 +238,37 @@
                                         <ul>
                                             <li>
                                                 <a href="/design/art-and-illustration/">
-                                                    <font>
-                                                        <font>艺术和插图</font>
-                                                    </font>
+
+                                                    艺术和插图
+
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/design/books-and-magazines/">
-                                                    <font>
-                                                        <font>书籍和杂志</font>
-                                                    </font>
+
+                                                    书籍和杂志
+
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/design/product-design/">
-                                                    <font>
-                                                        <font>产品设计</font>
-                                                    </font>
+
+                                                    产品设计
+
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/design/photography/">
-                                                    <font>
-                                                        <font>摄影</font>
-                                                    </font>
+
+                                                    摄影
+
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/design/miscellaneous/">
-                                                    <font>
-                                                        <font>杂</font>
-                                                    </font>
+
+                                                    杂
+
                                                 </a>
                                             </li>
                                         </ul>
@@ -302,10 +281,10 @@
                                                         <img src="../image/ucl-final-fans-tab.jpg" alt="UCL决赛|  从街道到座位"></a>
                                                     <h4>
                                                         <a href="/design/photography/2017/06/ucl-final-from-the-streets-to-the-seats/">
-                                                            <font>
-                                                                <font>UCL决赛| </font>
-                                                                <font>从街道到...</font>
-                                                            </font>
+
+                                                            UCL决赛|
+                                                            从街道到...
+
                                                         </a>
                                                     </h4>
                                                 </li>
@@ -314,10 +293,10 @@
                                                         <img src="../image/tab(1).jpg" alt="框架|  土伦赛：英格兰v日本"></a>
                                                     <h4>
                                                         <a href="/design/photography/2017/06/framed-toulon-tournament-england-v-japan/">
-                                                            <font>
-                                                                <font>框架| </font>
-                                                                <font>土伦赛：英格兰</font>
-                                                            </font>
+
+                                                            框架|
+                                                            土伦赛：英格兰
+
                                                         </a>
                                                     </h4>
                                                 </li>
@@ -327,10 +306,10 @@
                                                              alt="框架|  WUCL决赛：里昂vs PSG"></a>
                                                     <h4>
                                                         <a href="/design/photography/2017/06/framed-wucl-final-lyon-vs-psg/">
-                                                            <font>
-                                                                <font>框架| </font>
-                                                                <font>WUCL决赛：里昂vs PSG</font>
-                                                            </font>
+
+                                                            框架|
+                                                            WUCL决赛：里昂vs PSG
+
                                                         </a>
                                                     </h4>
                                                 </li>
@@ -339,9 +318,9 @@
                                                         <img src="../image/tab(2).jpg" alt="“来联合，为曼彻斯特做”|  镜头背后的故事"></a>
                                                     <h4>
                                                         <a href="/design/photography/2017/05/come-on-united-do-it-for-manchester-the-story-behind-the-lens/">
-                                                            <font>
-                                                                <font>“来联合，为Mancheste做...</font>
-                                                            </font>
+
+                                                            “来联合，为Mancheste做...
+
                                                         </a>
                                                     </h4>
                                                 </li>
@@ -353,9 +332,9 @@
                         </li>
                         <li class="last">
                             <a>
-                                <font>
-                                    <font>更多</font>
-                                </font><span></span></a>
+
+                                更多
+                                <span></span></a>
                             <div class="drop-down">
                                 <div class="side-colour"></div>
                                 <div class="inner-holder">
@@ -363,58 +342,58 @@
                                         <ul>
                                             <li>
                                                 <a href="/boot-stats/">
-                                                    <font>
-                                                        <font>启动统计</font>
-                                                    </font>
+
+                                                    启动统计
+
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/soccerbible-tv/">
-                                                    <font>
-                                                        <font>足球电视</font>
-                                                    </font>
+
+                                                    足球电视
+
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/boot-spotting/">
-                                                    <font>
-                                                        <font>引导点</font>
-                                                    </font>
+
+                                                    引导点
+
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/competitions/">
-                                                    <font>
-                                                        <font>比赛</font>
-                                                    </font>
+
+                                                    比赛
+
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/miscellaneous/">
-                                                    <font>
-                                                        <font>杂</font>
-                                                    </font>
+
+                                                    杂
+
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/boot-spy/">
-                                                    <font>
-                                                        <font>引导间谍</font>
-                                                    </font>
+
+                                                    引导间谍
+
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/interviews/">
-                                                    <font>
-                                                        <font>面试</font>
-                                                    </font>
+
+                                                    面试
+
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/advertising-branding/">
-                                                    <font>
-                                                        <font>广告和品牌</font>
-                                                    </font>
+
+                                                    广告和品牌
+
                                                 </a>
                                             </li>
                                         </ul>
@@ -428,9 +407,9 @@
                                                     </a>
                                                     <h4>
                                                         <a href="/boot-spotting/2017/06/05/global-boot-spotting/">
-                                                            <font>
-                                                                <font>全球启动发现05/06/2017</font>
-                                                            </font>
+
+                                                            全球启动发现05/06/2017
+
                                                         </a>
                                                     </h4>
                                                 </li>
@@ -440,9 +419,9 @@
                                                     </a>
                                                     <h4>
                                                         <a href="/boot-spotting/2017/05/30/global-boot-spotting/">
-                                                            <font>
-                                                                <font>全球启动30/05/2017</font>
-                                                            </font>
+
+                                                            全球启动30/05/2017
+
                                                         </a>
                                                     </h4>
                                                 </li>
@@ -452,9 +431,9 @@
                                                     </a>
                                                     <h4>
                                                         <a href="/boot-spotting/2017/05/22/global-boot-spotting/">
-                                                            <font>
-                                                                <font>全球启动发现22/05/2017</font>
-                                                            </font>
+
+                                                            全球启动发现22/05/2017
+
                                                         </a>
                                                     </h4>
                                                 </li>
@@ -464,9 +443,9 @@
                                                     </a>
                                                     <h4>
                                                         <a href="/boot-spotting/2017/05/15/global-boot-spotting/">
-                                                            <font>
-                                                                <font>全球启动发现15/05/2017</font>
-                                                            </font>
+
+                                                            全球启动发现15/05/2017
+
                                                         </a>
                                                     </h4>
                                                 </li>
@@ -478,16 +457,16 @@
                         </li>
                         <li>
                             <a href="/showroom/">
-                                <font>
-                                    <font>陈列室</font>
-                                </font>
+
+                                陈列室
+
                             </a>
                         </li>
                         <li>
                             <a href="/store/" target="_blank">
-                                <font>
-                                    <font>商店</font>
-                                </font>
+
+                                商店
+
                             </a>
                         </li>
                     </ul>
@@ -500,11 +479,11 @@
             <div class="inner">
                 <div class="search">
                     <form class="navbar-form" action="/search/" method="post">
-                        <label for="search"><font><font>搜索</font></font></label>
+                        <label for="search">搜索</label>
                         <input type="text" name="search" id="search" class="search-query span2" placeholder="Search">
-                        <font>
-                            <font><input type="submit" value="搜索"></font>
-                        </font>
+
+                        <input type="submit" value="搜索">
+
                     </form>
                 </div>
             </div>
@@ -517,11 +496,8 @@
             <div class="sidebar-first">
                 <div class="sidebar-first-inner ">
                     <h1 id="article-title" class="article-title">
-                        <!--TODO-->
                     </h1>
                     <div id="article-content" class="article-content">
-                        <!--TODO-->
-
                     </div>
                 </div>
             </div>

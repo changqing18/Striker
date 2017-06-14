@@ -540,7 +540,7 @@
             page = parseInt(str[0].split("=")[1]);
         }
         if (!isNaN(page)) {
-            ajax("GET", "/servlet/getarticlea?page=" + page, showList)
+            ajax("GET", "/servlet/GetArticleAll?page=" + page, showList)
         }
     }
     pageNo();

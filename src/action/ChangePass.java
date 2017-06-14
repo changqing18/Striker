@@ -15,7 +15,7 @@ import java.io.IOException;
 /**
  * Created by 28713 on 2017/6/6.
  */
-@WebServlet(value = "/servlet/password", name = "ChangePasswd")
+@WebServlet(value = "/servlet/ChangePass", name = "ChangePasswd")
 public class ChangePass extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String old = request.getParameter("old");

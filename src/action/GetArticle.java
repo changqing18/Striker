@@ -16,7 +16,7 @@ import java.io.PrintWriter;
 /**
  * Created by 28713 on 2017/6/11.
  */
-@WebServlet(value = "/servlet/getarticle", name = "GetArticle")
+@WebServlet(value = "/servlet/GetArticle", name = "GetArticle")
 public class GetArticle extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");

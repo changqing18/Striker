@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Created by 28713 on 2017/6/13.
  */
-@WebServlet(value = "/servlet/getarticlewt", name = "GetArticleWT")
+@WebServlet(value = "/servlet/GetArticleWT", name = "GetArticleWT")
 public class GetArticleWT extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setCharacterEncoding("UTF-8");

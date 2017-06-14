@@ -20,8 +20,8 @@ import java.util.List;
 /**
  * Created by 28713 on 2017/5/18.
  */
-@WebServlet(value = "/servlet/upload", name = "upload")
-public class upload extends HttpServlet {
+@WebServlet(value = "/servlet/Upload", name = "Upload")
+public class Upload extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Logger logger = LogManager.getLogger();
         String savePath = getServletContext().getRealPath("/image");

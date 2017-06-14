@@ -15,7 +15,7 @@ import java.io.IOException;
 /**
  * Created by 28713 on 2017/6/8.
  */
-@WebServlet(value = "/servlet/address", name = "AddAddress")
+@WebServlet(value = "/servlet/AddAddress", name = "AddAddress")
 public class AddAddress extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
