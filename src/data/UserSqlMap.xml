@@ -34,4 +34,20 @@
     <select id="getArticleWT" parameterType="model.ArticleType" resultType="model.ArticleInfo">
         select id, head, cover from article where type=#{type} LIMIT #{start},12;
     </select>
+    <delete id="deleteAddress" parameterType="int">
+        delete from address where id=#{id} and email=#{email};
+    </delete>
+    <insert id="addGood" useGeneratedKeys="true" keyProperty="id" parameterType="model.Good">
+        insert into good (name, cover, price, stock, type, des)
+        VALUES (#{name}, #{cover}, #{price}, #{stock}, #{type}, #{des});
+    </insert>
+    <select id="getGoodInfo" parameterType="int" resultType="model.GoodInfo">
+        select id,name,cover,price from good LIMIT #{start},12;
+    </select>
+    <insert id="addGoodImage" parameterType="model.GoodImage">
+        insert into goodimage VALUES
+            <foreach collection="list" item="item" separator=",">
+                (#{item.id},#{item.name})
+            </foreach>
+    </insert>
 </mapper>

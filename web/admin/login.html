@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login:Striker</title>
+    <style>
+        label {
+            width: 75px;
+        }
+
+        form {
+            width: 360px;
+        }
+
+        #submit {
+            width: 250px;
+        }
+
+        a {
+            margin: auto 40px;
+        }
+    </style>
+    <link rel="stylesheet" href="../css/user_comm.css">
+    <script src="../js/user_comm.js"></script>
+    <script src="../js/sha3.min.js"></script>
+</head>
+<body>
+<br>
+<br>
+<p>Login</p>
+<form class="login" method="post" action="/servlet/AdminLogin">
+
+    <fieldset id="personal_information">
+        <ol>
+            <li>
+                <label for="admin">用户名</label>
+                <input type="text" name="admin" id="admin" required/>
+            </li>
+
+            <li>
+                <label for="password">密码</label>
+                <input id="password" type="password" name="password" autocomplete="off" required/>
+            </li>
+            <li><input id="submit" value="登录" type="submit" onclick="return check()"></li>
+
+        </ol>
+    </fieldset>
+</form>
+<script>
+    function check() {
+        let pass = document.getElementById("password");
+        let shaObj = new jsSHA("SHA3-256", "TEXT");
+        shaObj.update(pass.value);
+        pass.value = shaObj.getHash("HEX");
+        return true;
+    }
+</script>
+</body>
+</html>
