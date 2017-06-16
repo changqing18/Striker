@@ -14,6 +14,7 @@ public class Address {
     private String county;
     private String detail;
 
+
     public Address(int id, String email, String name, long phone, int postcode,
                    String province, String city, String county, String detail) {
         this.id = id;
@@ -26,6 +27,7 @@ public class Address {
         this.county = county;
         this.detail = detail;
     }
+
 
     public int getId() {
         return id;

@@ -22,6 +22,12 @@
     <update id="updatePassword" parameterType="model.UserInfo">
         update user set password=#{password} where email=#{email};
     </update>
+    <select id="getOrder" parameterType="String" resultType="model.Order">
+        SELECT * from orderinfo WHERE email=#{email}
+    </select>
+    <insert id="addOrder" parameterType="model.Order">
+        INSERT INTO orderinfo (addressid, payment, payornot, email, memo, tag, sumprice) VALUES (#{addressid},#{payment},#{payornot},#{email},#{memo},#{tag},#{sumprice})
+    </insert>
     <insert id="insertArticle" parameterType="model.Article">
         insert into article (type,head, cover,content) VALUES (#{type},#{head},#{cover},#{content});
     </insert>
@@ -33,6 +39,15 @@
     </select>
     <select id="getArticleWT" parameterType="model.ArticleType" resultType="model.ArticleInfo">
         select id, head, cover from article where type=#{type} LIMIT #{start},12;
+    </select>
+    <select id="getAddressbyId" parameterType="int" resultType="model.Address">
+        select * from address where id=#{id}
+    </select>
+    <select id="getOrderInfo" parameterType="int" resultType="model.Order">
+        SELECT * from orderinfo WHERE orderid=#{id}
+    </select>
+    <select id="getOrderSum" parameterType="int" resultType="model.OrderSum">
+        SELECT goodid, count, orderid, sprice from ordersum WHERE orderid=#{id}
     </select>
     <delete id="deleteAddress" parameterType="int">
         delete from address where id=#{id} and email=#{email};
