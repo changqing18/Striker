@@ -2,32 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>添加文章</title>
+    <title>添加商品</title>
     <script src="../js/base64js.min.js"></script>
     <script src="../js/spark-md5.min.js"></script>
-    <style>
-        #fieldset {
-            width:870px;
-            margin: auto;
-        }
-        ol{
-            padding-left: 6px;
-        }
-        ol,li{
-            list-style: none;
-        }
-        img {
-            width: 252px;
-            height: 200px;
-        }
-        #but{ margin-left: 680px}
-    </style>
     <script>
-        function append(name) {
-            let area = document.getElementById("content");
-            let text = "<img src=\"../image/";
-            area.value = area.value + "\n" + text + name + "\" >"
-        }
 
         function addDom(num) {
             let label = document.createElement("label");
@@ -74,15 +52,21 @@
                     let name = SparkMD5.ArrayBuffer.hash(arr);
                     name = name + imgType;
                     console.log(name);
-                    
+
                     //将图片信息放入input中
+                    let form=document.getElementById("good");
                     document.getElementById(string + "name").value = name;
-                    if(string==0){
+                    if(string==='0'){
                         document.getElementById("cover").value=name;
-                    }else {
-                        append(name);
+                    }else{
+                        let imgName=document.createElement("input");
+                        imgName.type="text";
+                        imgName.name=string+"image";
+                        imgName.style.display="none";
+                        imgName.value=name;
+                        form.appendChild(imgName);
                     }
-                    
+
                     //append dom start
                     let num = parseInt(string) + 1;
                     let next = document.getElementById(num + "name");
@@ -97,23 +81,29 @@
                 location.reload();
             }
         }
-        function sendArticle() {
+        function sendGood() {
             let xhr=new XMLHttpRequest();
             xhr.onreadystatechange =function () {
                 if(xhr.readyState === 4 && xhr.status === 200){
-                    let form = document.getElementById("article");
+                    let form = document.getElementById("good");
                     form.submit();
                 }
             };
             xhr.open("POST","/servlet/Upload",true);
             let form=document.getElementById("image");
+            console.log("run");
             xhr.send(new FormData(form));
         }
-
     </script>
+    <style>
+        img {
+            width: 252px;
+            height: 252px;
+        }
+    </style>
 </head>
 <body>
-<form id="article" class="article" method="post" action="/servlet/AddArticle">
+<form id="good" class="good" method="post" action="/servlet/AddGood">
     <fieldset id="fieldset">
         <ol>
             <li>
@@ -121,30 +111,39 @@
                 <input type="text" name="head" id="head" required/>
             </li>
             <li>
-                <label>performance
+                <label for="price">价格</label>
+                <input type="number" id="price" name="price">
+            </li>
+            <li>
+                <label for="stock">数量</label>
+                <input type="number" id="stock" name="stock">
+            </li>
+            <li>
+                <label>球鞋
+                    <input type="radio" name="type" value="0">
+                </label>
+                <label>球衣
                     <input type="radio" name="type" value="1">
                 </label>
-                <label>lifestyle
-                    <input type="radio" name="type" value="2">
-                </label>
-                <label>design
+                <label>杂志
                     <input type="radio" name="type" value="3">
                 </label>
             </li>
             <li>
-                <p>内容</p>
-                <label for="content"></label>
-                <textarea id="content" name="content" cols="120" rows="30"></textarea>
+                <p>商品描述</p>
+                <label for="description"></label>
+                <textarea id="description" name="description" cols="80" rows="20"></textarea>
             </li>
-            <li>
+            <li hidden>
                 <label for="cover"></label>
-                <input type="text" id="cover" name="cover" hidden>
+                <input type="text" id="cover" name="cover">
             </li>
         </ol>
     </fieldset>
 
 </form>
-<button id="but" onclick="sendArticle()">提交</button>
+<button id="but" onclick="sendGood()">提交</button>
+
 <form id="image" name="image" method="post" enctype="multipart/form-data" action="/servlet/Upload">
     <label for="0name"></label>
     <input type="text" id="0name" name="0name" hidden>
@@ -152,5 +151,6 @@
     <input type="file" id="0cover" name="0cover" onchange="upload(event)">
 </form>
 <img id="0preview" src="" alt="" width="200px" height="200px">
+
 </body>
 </html>

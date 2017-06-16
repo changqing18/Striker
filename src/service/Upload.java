@@ -26,6 +26,7 @@ public class Upload extends HttpServlet {
         Logger logger = LogManager.getLogger();
         String savePath = getServletContext().getRealPath("/image");
         savePath=savePath+"/";
+//        String savePath="D:\\IdeaProjects\\Striker\\web\\image\\";
         response.setCharacterEncoding("UTF-8");
         try {
             DiskFileItemFactory factory = new DiskFileItemFactory();

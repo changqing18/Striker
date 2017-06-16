@@ -38,13 +38,16 @@
                 for (let i = 0; i < arr.length; i++) {
                     let tr = address.appendChild(document.createElement("tr"));
                     let ar = arr[i];
-                    for (let temp in ar) {
-                        if (temp !== "id")
-                            tr.appendChild(document.createElement("td")).textContent = ar[temp];
+                    let names=["id","name","phone","postcode","city","county","detail"];
+                    let td=tr.appendChild(document.createElement("td"));
+                    td.textContent=ar["id"];
+                    td.style.display="none";
+                    for(let i=1;i<names.length;i++){
+                        tr.appendChild(document.createElement("td")).textContent=ar[names[i]];
                     }
                     let but = tr.appendChild(document.createElement("td")).appendChild(document.createElement("button"));
-                    but.textContent = "修改";
-                    but.onclick = updateAddress();
+                    but.textContent = "删除";
+                    but.setAttribute("onclick","deleteAddress(event)");
                 }
             } else {
                 alert("您尚未登录！");
@@ -52,10 +55,14 @@
             }
         }
     }
-    function updateAddress() {
-
-    }
     ajax('GET', '/servlet/GetAddress', getAddress);
+
+    function deleteAddress(event) {
+        let parent=event.target.parentNode.parentNode;
+        let first=parent.firstChild;
+        ajax("GET","/servlet/DeleteAddress?id="+first.textContent);
+        parent.parentNode.removeChild(parent);
+    }
 </script>
 </body>
 </html>
