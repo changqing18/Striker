@@ -40,4 +40,13 @@
     <select id="getArticleWT" parameterType="model.ArticleType" resultType="model.ArticleInfo">
         select id, head, cover from article where type=#{type} LIMIT #{start},12;
     </select>
+    <select id="getAddressbyId" parameterType="int" resultType="model.Address">
+        select * from address where id=#{id}
+    </select>
+    <select id="getOrderInfo" parameterType="int" resultType="model.Order">
+        SELECT * from orderinfo WHERE orderid=#{id}
+    </select>
+    <select id="getOrderSum" parameterType="int" resultType="model.OrderSum">
+        SELECT goodid, count, orderid, sprice from ordersum WHERE orderid=#{id}
+    </select>
 </mapper>

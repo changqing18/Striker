@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>我的订单</title>
+    <link rel="stylesheet" type="text/css" href="../css/styles-scss-min.css">
+    <script>
+        let id = 0;
+        let requests = location.search;
+        if (requests.indexOf("?") !== -1) {
+            let str = requests.substr(1).split("&");
+            id = parseInt(str[0].split("=")[1]);
+            ajax("GET", "/servlet/getorderinfo?orderid=" + id, getOrderinfo)
+        } else {
+            alert("error!");
+        }
+        function ajax(method, url, callback) {
+            let xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    callback(xhr.responseText);
+                }
+            };
+            xhr.open(method, url, true);
+            xhr.send();
+        }
+        function getOrderinfo(text) {
+            if (text != null) {
+                if (text != "nologin") {
+                    let arr = text = JSON.parse(text);
+                    let order = arr["order"];
+                    let ordersum = arr["ordersum"]
+                    let address = arr["address"]
+                    let orderid = document.getElementById("orderid");
+                    orderid.textContent = id;
+                    let date = document.getElementById("date")
+                    date.textContent = order["dat"];
+                    let orderinfo = document.getElementById("orderinfo");
+                    for (let temp in ordersum){
+                    let good =  orderinfo.appendChild(document.createElement("tr"));
+                    let goodid = good.appendChild(document.createElement("td"));
+                    goodid.textContent = ordersum[temp]["goodid"];
+                    goodid.colSpan = 3;
+                    let price = ordersum[temp]["sprice"]/ordersum[temp]["count"];
+                    let singleprice = good.appendChild(document.createElement("td"));
+                    singleprice.textContent = price;
+                    singleprice.colSpan = 3;
+                    let count = good.appendChild(document.createElement("td"));
+                    count.textContent = ordersum[temp]["count"];
+                    count.colSpan=3;
+                    let ods = good.appendChild(document.createElement("td"));
+                    ods.textContent = ordersum[temp]["sprice"];
+                    ods.colSpan = 3;
+                    }
+
+                    let receiver = document.getElementById("receiver");
+                    receiver.textContent = address["name"];
+                    let tel = document.getElementById("tel");
+                    tel.textContent = address["phone"];
+                    let code = document.getElementById("code");
+                    code.textContent = address["postcode"];
+                    let addressname = ["province","city","county","detail"];
+                    let Address="";
+                    for(let i=0;i<addressname.length;i++){
+                        Address=Address+address[addressname[i]];
+                    }
+                    let address1 = document.getElementById("address");
+                    address1.textContent = Address;
+                    let sumprice = document.getElementById("sumprice");
+                    sumprice.textContent = order["sumprice"];
+                    let memmo = document.getElementById("memo");
+                    memo.textContent = order["memo"];
+                    memo.colSpan = 10;
+                    if(order["payornot"])
+                    {
+                        let payment = document.getElementById("payment");
+                        payment.textContent = order["payment"];
+                        if(order["tag"]){
+                            let tag = document.getElementById("tag");
+                            tag.textContent = "已发货";
+                        }
+                        else{
+                            let tag = document.getElementById("tag");
+                            tag.textContent = "未发货";
+                        }
+                    }
+                    else{
+                        let payment = document.getElementById("payment");
+                        payment.textContent = "尚未支付";
+                        let ispay = document.getElementById("ispay");
+                        let a = ispay.appendChild(document.createElement("a"));
+                        a.textContent = "点击支付";
+                        a.href="pay.html?id="+order["orderid"];
+                    }
+                } else {
+                    alert("您尚未登录！");
+                    window.location.href = "login.html";
+                }
+            }
+        }
+    </script>
+</head>
+
+<body style="position: relative; min-height: 100%; top: 0px;">
+<div id="navigation">
+    <div class="search-bar"></div>
+    <nav>
+        <ul>
+            <li>
+                <a href="/store/collections/all/?sort_by=created-descending">
+
+                    最新
+
+                </a>
+            </li>
+            <li>
+                <a href="">
+
+                    社论
+
+                </a>
+            </li>
+            <li class="sale">
+                <a href="/store/collections/sale">
+
+                    拍卖
+
+                </a>
+            </li>
+            <li class="external">
+                <a href="/">
+
+                    主站点
+
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<div id="page">
+    <div class="header">
+        <div class="main">
+            <div class="nav-burger-container">
+                <a class="nav-burger" href="">
+                    <span class="top-bar"></span>
+                    <span class="middle-bar"></span>
+                    <span class="bottom-bar"></span>
+                </a>
+            </div>
+            <div class="wrapper">
+                <div class="logo">
+                    <a href="/index.html" >
+                        <span style="color: white;font-size: 20px;font-weight: 900">Striker</span>
+                    </a>
+                </div>
+                <ul class="unstyled">
+                    <li id="cart-target" class="toolbar-cart ">
+                        <a href="/store/cart" class="cart" title="购物车">
+                            <span class="icon-cart"></span>
+                            <span id="cart-count">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Begin wrapper -->
+    <div id="transparency" class="wrapper clearfix">
+        <div class="row p0">
+
+            <!-- Begin content-->
+            <section id="content" class="clearfix">
+
+                <div id="product" class="soccerbible-magazine-issue-8-marcus-rashford-cover">
+
+                    <div class="row clearfix">
+
+
+
+
+                        <!-- Begin related product -->
+                        <div class="row products related-products">
+                            <h3 class="related-title" style="font-size: 45px">
+                                订单详情
+                            </h3>
+                        </div>
+                        <div>
+                            <table id="orderinfo">
+                                <tr>
+                                    <td colspan="4" style="font-weight: 600">订单号</td>
+                                    <td colspan="8" id="orderid"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="8"></td>
+                                    <td colspan="2" style="font-weight: 600">下单时间</td>
+                                    <td colspan="2" id="date"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="font-weight: 600">收货人</td>
+                                    <td id="receiver" colspan="2"></td>
+                                    <td colspan="2" style=" font-weight: 600">电话号码</td>
+                                    <td id="tel" colspan="2"></td>
+                                    <td colspan="2" style="font-weight: 600">邮政编码</td>
+                                    <td id="code" colspan="2"></td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: 600" colspan="2">地址</td>
+                                    <td id="address" colspan="10"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="8"></td>
+                                    <td colspan="2" style="font-weight: 600">总价</td>
+                                    <td id = sumprice colspan="2"></td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: 600" colspan="2">备注信息</td>
+                                    <td id = "memo"></td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: 600" colspan="2">支付状态</td>
+                                    <td id="payment" colspan="2"></td>
+                                    <td id="ispay" colspan="4"></td>
+                                    <td style="font-weight: 600" colspan="2">发货状态</td>
+                                    <td id="tag" colspan="2"></td>
+                                </tr>
+                                <tr id="good">
+                                    <td colspan="3" style="font-weight: 600">商品名称</td>
+                                    <td colspan="3" style="font-weight: 600">单价</td>
+                                    <td colspan="3" style="font-weight: 600">数量</td>
+                                    <td colspan="3" style="font-weight: 600">商品总价</td>
+                                </tr>
+
+                            </table>
+                        </div>
+                    </div>
+                    <!-- End wrapper -->
+                </div>
+            </section>
+        </div>
+    </div>
+</div></body>
+
+</html>
