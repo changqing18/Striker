@@ -48,6 +48,7 @@ public class GetArticleWT extends HttpServlet {
             SqlSessionFactory sqlSessionFactory = data.SessionFactoryUtil.getSqlSessionFactory();
             SqlSession sqlSession = sqlSessionFactory.openSession();
             List<ArticleInfo> articles = sqlSession.selectList("data.UserSqlMap.getArticleWT", articleType);
+            sqlSession.close();
 
             Gson gson = new Gson();
             PrintWriter out = response.getWriter();

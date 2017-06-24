@@ -34,6 +34,7 @@ public class AddAddress extends HttpServlet {
             SqlSession sqlSession = sqlSessionFactory.openSession();
             sqlSession.insert("data.UserSqlMap.addAddress", address);
             sqlSession.commit();
+            sqlSession.close();
             response.sendRedirect("/user/center.html");
         }
     }

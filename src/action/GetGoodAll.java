@@ -29,6 +29,7 @@ public class GetGoodAll extends HttpServlet {
         SqlSessionFactory sqlSessionFactory = data.SessionFactoryUtil.getSqlSessionFactory();
         SqlSession sqlSession = sqlSessionFactory.openSession();
         List<ArticleInfo> articles = sqlSession.selectList("data.UserSqlMap.getGoodInfo", start);
+        sqlSession.close();
 
         Gson gson = new Gson();
         PrintWriter out = response.getWriter();

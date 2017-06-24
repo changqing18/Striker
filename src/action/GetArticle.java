@@ -27,6 +27,7 @@ public class GetArticle extends HttpServlet {
             SqlSessionFactory sqlSessionFactory = data.SessionFactoryUtil.getSqlSessionFactory();
             SqlSession sqlSession = sqlSessionFactory.openSession();
             Article article = sqlSession.selectOne("data.UserSqlMap.getArticle", id);
+            sqlSession.close();
             Gson gson = new Gson();
             PrintWriter out = response.getWriter();
             gson.toJson(article, out);

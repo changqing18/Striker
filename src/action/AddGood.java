@@ -57,6 +57,7 @@ public class AddGood extends HttpServlet {
             }
             sqlSession.insert("data.UserSqlMap.addGoodImage",list);
             sqlSession.commit();
+            sqlSession.close();
             response.sendRedirect("/admin/addgood.html");
         } else response.sendRedirect("/return_info.html?info=41");
     }

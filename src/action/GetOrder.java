@@ -37,6 +37,7 @@ public class GetOrder extends HttpServlet {
             OrderAddress temp=new OrderAddress(list.get(i),sqlSession.selectOne("getAddressbyId",list.get(i).getAddressid()));
             orderAddresses.add(temp);
         }
+        sqlSession.close();
         System.out.print(orderAddresses);
         Gson gson=new Gson();
         PrintWriter out=response.getWriter();

@@ -30,6 +30,7 @@ public class ChangePass extends HttpServlet {
                 UserInfo user = new UserInfo(null, email, later);
                 if (sqlSession.update("data.UserSqlMap.updatePassword", user) == 1) {
                     sqlSession.commit();
+                    sqlSession.close();
                     response.sendRedirect("/user/center.html");
                 } else {
                     response.sendRedirect("/return_info.html");

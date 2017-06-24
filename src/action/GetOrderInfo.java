@@ -30,6 +30,7 @@ public class GetOrderInfo extends HttpServlet {
             Order order = sqlSession.selectOne("data.UserSqlMap.getOrderInfo", id);
             List<OrderSum> orderSum = sqlSession.selectList("data.UserSqlMap.getOrderSum",id);
             OrderInfo temp1=new OrderInfo(order,sqlSession.selectOne("data.UserSqlMap.getAddressbyId",order.getAddressid()),orderSum);
+            sqlSession.close();
             Gson gson = new Gson();
             PrintWriter out = response.getWriter();
             gson.toJson(temp1, out);

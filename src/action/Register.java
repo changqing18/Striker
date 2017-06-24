@@ -23,15 +23,15 @@ public class Register extends HttpServlet {
                 request.getParameter("email"), request.getParameter("password"));
         Logger log = LogManager.getLogger();
         SqlSessionFactory sqlSessionFactory = data.SessionFactoryUtil.getSqlSessionFactory();
-        SqlSession session = sqlSessionFactory.openSession();
-        int check = session.selectOne("data.UserSqlMap.count", userInfo.getEmail());
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        int check = sqlSession.selectOne("data.UserSqlMap.count", userInfo.getEmail());
         if (check == 1)
             response.sendRedirect("/return_info.html?info=21&email=" + userInfo.getEmail());
         else {
-            session.insert("data.UserSqlMap.insertInfo", userInfo);
+            sqlSession.insert("data.UserSqlMap.insertInfo", userInfo);
             log.info("user-email:" + userInfo.getEmail() + " has been created");
-            session.commit();
-            session.close();
+            sqlSession.commit();
+            sqlSession.close();
             response.sendRedirect("/return_info.html?info=20&email=" + userInfo.getEmail());
         }
     }

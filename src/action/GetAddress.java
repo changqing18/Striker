@@ -29,6 +29,7 @@ public class GetAddress extends HttpServlet {
             SqlSessionFactory sqlSessionFactory = data.SessionFactoryUtil.getSqlSessionFactory();
             SqlSession sqlSession = sqlSessionFactory.openSession();
             List<Address> list = sqlSession.selectList("data.UserSqlMap.getAddress", email);
+            sqlSession.close();
             Gson gson = new Gson();
             gson.toJson(list, out);
             out.close();
