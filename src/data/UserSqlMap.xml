@@ -25,7 +25,7 @@
     <select id="getOrder" parameterType="String" resultType="model.Order">
         SELECT * from orderinfo WHERE email=#{email}
     </select>
-    <insert id="addOrder" parameterType="model.Order">
+    <insert id="addOrder" useGeneratedKeys="true" keyProperty="orderid" parameterType="model.Order">
         INSERT INTO orderinfo (addressid, payment, payornot, email, memo, tag, sumprice) VALUES (#{addressid},#{payment},#{payornot},#{email},#{memo},#{tag},#{sumprice})
     </insert>
     <insert id="insertArticle" parameterType="model.Article">
@@ -47,7 +47,7 @@
         SELECT * from orderinfo WHERE orderid=#{id}
     </select>
     <select id="getOrderSum" parameterType="int" resultType="model.OrderSum">
-        SELECT goodid, count, orderid, sprice from ordersum WHERE orderid=#{id}
+        SELECT goodid, count,sprice,orderid from ordersum WHERE orderid=#{id}
     </select>
     <delete id="deleteAddress" parameterType="model.AddressId">
         delete from address where id=#{id} and email=#{email};
@@ -65,6 +65,45 @@
                 (#{item.id},#{item.name})
             </foreach>
     </insert>
+    <select id="getGoodDetail" parameterType="int" resultType="model.Good">
+        select * from good where id = #{id};
+    </select>
+    <select id="getGoodImage" parameterType="int" resultType="model.GoodImage">
+        select * from goodimage where goodid = #{id};
+    </select>
+    <update id="degood" parameterType="model.degoodnum">
+        update good set stock = stock - #{number} WHERE id = #{goodid};
+    </update>
+    <insert id="addordersum" parameterType="model.OrderSum">
+        insert into ordersum (goodid,count,sprice,orderid) VALUES  (#{goodid}, #{count}, #{sprice}, #{orderid});
+    </insert>
+    <update id="pay" parameterType="model.Payment" >
+        UPDATE orderinfo set payornot = 1,payment = #{payment} where orderid = #{orderid};
+    </update>
+    <select id="findCart" parameterType="model.CartFind" resultType="model.Cart">
+        SELECT * from cart where email=#{email} and goodid=#{goodid};
+    </select>
+    <insert id="addCart" parameterType="model.Cart">
+        INSERT  INTO  cart (email, goodid, number) VALUES (#{email}, #{goodid}, #{number});
+    </insert>
+    <update id="updateCart" parameterType="model.Cart">
+        UPDATE cart SET number = number + #{number} where email = #{email} AND goodid = #{goodid};
+    </update>
+    <select id="getGoodName" parameterType="int" resultType="String">
+        SELECT name from good where id = #{goodid};
+    </select>
+    <select id="getGoodStock" parameterType="int" resultType="int">
+        SELECT stock from good where id = #{goodid};
+    </select>
+    <select id="getCart" parameterType="String" resultType="model.Cart">
+        SELECT * FROM cart WHERE email = #{email};
+    </select>
+    <delete id="deleteCartwhole" parameterType="String">
+        DELETE FROM cart WHERE email = #{email};
+    </delete>
+    <delete id="deleteCartone" parameterType="int">
+        DELETE FROM cart WHERE goodid = #{goodid};
+    </delete>
 
     <delete id="deleteArticle" parameterType="int">
         delete from article where id=#{id};

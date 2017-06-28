@@ -90,7 +90,7 @@
                         let ispay = document.getElementById("ispay");
                         let a = ispay.appendChild(document.createElement("a"));
                         a.textContent = "点击支付";
-                        a.href="pay.html?id="+order["orderid"];
+                        a.href="pay.html?sprice="+order["sumprice"]+"&orderid="+id;
                     }
                 } else {
                     alert("您尚未登录！");

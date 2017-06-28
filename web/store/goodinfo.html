@@ -32,6 +32,8 @@
                     let goodimages = arr["goodimages"];
                     let goodid = document.getElementById("goodid");
                     goodid.textContent = id;
+                    let goodid1 = document.getElementById("goodid1");
+                    goodid1.value = id;
                     let description = document.getElementById("good-description");
                     description.textContent = good["des"];
                     let price = document.getElementById("price");
@@ -221,7 +223,7 @@
                                 <p style="font-weight: 400;" id="good-description"></p>
 
                             </div>
-                            <form id="add-item-form" action="/store/cart/add" data-productid="9708733325" method="post" class="variants clearfix">
+                            <form id="add-item-form" action="/servle/addcart" data-productid="9708733325" method="post" class="variants clearfix">
                                 <!--<div class="select clearfix" style="display:none">-->
                                     <!--<div class="selector-wrapper"><select class="single-option-selector" data-option="option1" id="product-select-option-0"><option value="Default Title">默认标题</option></select></div>-->
                                     <!--<select id="product-select" name="id" data-productid="9708733325" style="display: none;">-->
@@ -235,6 +237,8 @@
                                     <!--</select>-->
                                 <!--</div>-->
 
+                                <input id = "goodid1" name = "goodid" hidden value="">
+
                                 <input id="quantity" type="hidden" name="quantity" value="1" class="tc item-quantity">
 
 
@@ -242,14 +246,14 @@
                                     <h2 class="price 9708733325 " id="price-preview">价格:&nbsp;&nbsp&nbsp;&nbsp;<span id="price"></span>&nbsp;&nbsp;元</h2>
                                     <h2 class="price 9708733325 " id="stocks">库存:&nbsp;&nbsp&nbsp;&nbsp;<span id="stock"></span>&nbsp;&nbsp;件</h2>
                                     <!--<span class="money" data-currency-gbp="&amp;pound;10.00 GBP" data-currency="GBP"></span>-->
-                                    <h2 class="price 9708733325 " id="buynumber">选购数量：<label for="buy-number" hidden></label><input type="number" id="buy-number" min="1" max="100" required="required" value="1"></h2>
+                                    <h2 class="price 9708733325 " id="buynumber">选购数量：<label for="buy-number" hidden></label><input type="number" id="buy-number" min="1" max="100" name="buynumber" required="required" value="1"></h2>
 
                                 </div>
 
                                 <div class="purchase-section">
                                     <div class="purchase">
                                         <input type="button" id="buythis" class="btn addtocart" name="buy" value="购买" onclick="submitformbuy()">
-                                        <input type="submit" id="add-to-cart" class="btn addtocart" name="add" value="添加到购物车" onclick="">
+                                        <input type="submit" id="add-to-cart" class="btn addtocart" name="add" value="添加到购物车">
                                     </div>
                                 </div>
                             </form>
