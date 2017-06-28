@@ -22,6 +22,7 @@ import java.util.List;
 public class GetArticleWT extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json");
         String page = request.getParameter("page");
         int start;
         if (page == null) start = 0;

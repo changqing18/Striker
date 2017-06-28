@@ -22,6 +22,7 @@ public class GetOrderInfo extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json");
         String temp = request.getParameter("orderid");
         if (temp != null) {
             int id = Integer.parseInt(temp);

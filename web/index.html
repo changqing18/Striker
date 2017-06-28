@@ -3,6 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <title>Striker</title>
+    <script>
+
+        function ajax(method, url, callback) {
+            let xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    callback(xhr.responseText);
+                }
+            };
+            xhr.open(method, url, true);
+            xhr.send();
+        }
+
+        function showList(text) {
+            if (text != null) {
+                let arr = JSON.parse(text);
+                for (let i = 0; i < arr.length; i++) {
+                    let article = document.createElement("div");
+                    article.className = "article";
+                    document.getElementById("articles-list").appendChild(article);
+                    let img = article.appendChild(document.createElement("div"));
+                    img.className = "article-img";
+                    let aHref = img.appendChild(document.createElement("a"));
+                    let aimg = aHref.appendChild(document.createElement("img"));
+
+                    let detail = document.createElement("div");
+                    detail.className = "article-details";
+                    article.appendChild(detail);
+                    let h3 = detail.appendChild(document.createElement("h3"));
+                    h3.className = "article-title";
+                    let h3a = h3.appendChild(document.createElement("a"));
+                    aHref.href = h3a.href = "article.html?article=" + arr[i]["id"];
+                    aimg.alt = h3a.textContent = arr[i]["head"];
+                    aimg.src = "/image/" + arr[i]["cover"];
+                }
+            }
+        }
+        function pageNo() {
+            let page = 1;
+            let requests = location.search;
+            if (requests.indexOf("?") !== -1) {
+                let str = requests.substr(1).split("&");
+                page = parseInt(str[0].split("=")[1]);
+            }
+            if (!isNaN(page)) {
+                ajax("GET", "/servlet/GetArticleAll?page=" + page, showList)
+            }
+        }
+        pageNo();
+    </script>
     <link rel="stylesheet" type="text/css" href="css/styles-min.css">
 </head>
 
@@ -495,54 +545,4 @@
     </div>
 </div>
 </body>
-<script>
-
-    function ajax(method, url, callback) {
-        let xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                callback(xhr.responseText);
-            }
-        };
-        xhr.open(method, url, true);
-        xhr.send();
-    }
-
-    function showList(text) {
-        if (text != null) {
-            let arr = JSON.parse(text);
-            for (let i = 0; i < arr.length; i++) {
-                let article = document.createElement("div");
-                article.className = "article";
-                document.getElementById("articles-list").appendChild(article);
-                let img = article.appendChild(document.createElement("div"));
-                img.className = "article-img";
-                let aHref = img.appendChild(document.createElement("a"));
-                let aimg = aHref.appendChild(document.createElement("img"));
-
-                let detail = document.createElement("div");
-                detail.className = "article-details";
-                article.appendChild(detail);
-                let h3 = detail.appendChild(document.createElement("h3"));
-                h3.className = "article-title";
-                let h3a = h3.appendChild(document.createElement("a"));
-                aHref.href = h3a.href = "article.html?article=" + arr[i]["id"];
-                aimg.alt = h3a.textContent = arr[i]["head"];
-                aimg.src = "/image/" + arr[i]["cover"];
-            }
-        }
-    }
-    function pageNo() {
-        let page = 1;
-        let requests = location.search;
-        if (requests.indexOf("?") !== -1) {
-            let str = requests.substr(1).split("&");
-            page = parseInt(str[0].split("=")[1]);
-        }
-        if (!isNaN(page)) {
-            ajax("GET", "/servlet/GetArticleAll?page=" + page, showList)
-        }
-    }
-    pageNo();
-</script>
 </html>

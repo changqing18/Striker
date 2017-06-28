@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Striker</title>
+    <script>
+
+        const toJson = res => res.json();
+        async function getData(myRequset) {
+            try {
+                return await fetch(myRequset).then(toJson);
+            } catch (e) {
+                alert("error\n" + e);
+            }
+        }
+        function pageNo() {
+            let page = 1;
+            let requests = location.search;
+            if (requests.indexOf("?") !== -1) {
+                let str = requests.substr(1).split("&");
+                page = parseInt(str[0].split("=")[1]);
+            }
+            if (!isNaN(page)) {
+                getData("/servlet/GetArticleAll?page=" + page).then(showList);
+            }
+        }
+        pageNo();
+        function showList(data) {
+            for (let i = 0; i < data.length; i++) {
+                let article = document.createElement("div");
+                article.className = "article";
+                document.getElementById("articles-list").appendChild(article);
+                let img = article.appendChild(document.createElement("div"));
+                img.className = "article-img";
+                let aHref = img.appendChild(document.createElement("a"));
+                let aimg = aHref.appendChild(document.createElement("img"));
+
+                let detail = document.createElement("div");
+                detail.className = "article-details";
+                article.appendChild(detail);
+                let h3 = detail.appendChild(document.createElement("h3"));
+                h3.className = "article-title";
+                let h3a = h3.appendChild(document.createElement("a"));
+                aHref.href = h3a.href = "article.html?article=" + data[i]["id"];
+                aimg.alt = h3a.textContent = data[i]["head"];
+                aimg.src = "/image/" + data[i]["cover"];
+            }
+        }
+
+
+        function deleteArticle(event) {
+            let article=event.target;
+            let id=article.id;
+            article.parentNode.removeChild(article);
+            try{
+                fetch("/servlet/DeleteArticle?article="+id,{
+                    method:"GET",
+                    credentials:"same-origin"
+                }).then(response=>{
+                    if(response==="success")
+                        alert(response);
+                    else{
+                        alert("error!");
+                        window.location.reload();
+                    }
+                })
+            }catch(error){
+                alert("error"+error);
+            }
+        }
+        
+    </script>
+    <link rel="stylesheet" type="text/css" href="../css/styles-min.css">
+</head>
+
+<body class="ArticleList" style="position: relative; min-height: 100%; top: 0px;">
+<div class="fullpage">
+
+    <div id="main" role="main" class="main">
+
+        <div class="row">
+            <section id="articles-list" class="articles-list">
+            </section>
+            <div class="row clearfix">
+                <div class="page-navigation">
+                    <div class="nopadding col-xs-12 col-sm-12">
+                        <div class="holder next center">
+                            <a href="../index.html?page=2">
+                                下一页
+                                <span class="arrow"></span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

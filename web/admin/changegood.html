@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>商品详情</title>
+</head>
+<body>
+<form id="good" class="good" method="post" action="/servlet/UpdateGood">
+    <label><input id="goodid" name="goodid" type="text" hidden></label>
+    <fieldset id="fieldset">
+        <ol>
+            <li>
+                <label for="head">标题</label>
+                <input type="text" name="head" id="head" required/>
+            </li>
+            <li>
+                <label for="price">价格</label>
+                <input type="number" id="price" name="price">
+            </li>
+            <li>
+                <label for="stock">数量</label>
+                <input type="number" id="stock" name="stock">
+            </li>
+            <li>
+                <label>球鞋
+                    <input type="radio" name="type" value="0">
+                </label>
+                <label>球衣
+                    <input type="radio" name="type" value="1">
+                </label>
+                <label>杂志
+                    <input type="radio" name="type" value="3">
+                </label>
+            </li>
+            <li>
+                <p>商品描述</p>
+                <label for="description"></label>
+                <textarea id="description" name="description" cols="80" rows="20"></textarea>
+            </li>
+            <li>
+                <input type="submit" value="提交">
+            </li>
+        </ol>
+    </fieldset>
+
+</form>
+<script>
+    const toJson = res => res.json();
+    async function getData(myRequest) {
+        try {
+            return await fetch(myRequest).then(toJson);
+        } catch (e) {
+            alert("error\n" + e);
+        }
+    }
+    let good = 0;
+    let requests = location.search;
+    if (requests.indexOf("?") !== -1) {
+        let str = requests.substr(1).split("&");
+        good = parseInt(str[0].split("=")[1]);
+        document.getElementById("goodid").value=good;
+        getData("/servlet/GetGood?good=" + good).then(data => {
+            document.getElementById("head").value = data.name;
+            document.getElementById("price").value = data.price;
+            document.getElementById("stock").value = data.stock;
+            document.getElementById("description").value = data.des;
+            let radio = document.getElementsByName("type");
+            for (let i = 0; i < radio.length; i++) {
+                if (radio[i].value == data.type) {
+                    radio[i].checked = true;
+                }
+            }
+
+        });
+    } else {
+        alert("error!");
+    }
+
+</script>
+
+
+</body>
+</html>

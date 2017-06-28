@@ -2,15 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>adidas Nemeziz 17+ UltraBOOST“灰尘风暴”：鞋类：足球圣经</title>
+    <title>商品详情</title>
     <link rel="stylesheet" type="text/css" href="../css/styles-scss-min.css">
     <script>
-        let article=0;
+        let id = 0;
         let requests = location.search;
         if (requests.indexOf("?") !== -1) {
             let str = requests.substr(1).split("&");
-            article=parseInt(str[0].split("=")[1]);
-            ajax("GET","/servlet/GetArticle?article="+article,handle)
+            id = parseInt(str[0].split("=")[1]);
+            ajax("GET", "/servlet/getgooddetail?goodid=" + id, getGoodinfo)
         } else {
             alert("error!");
         }
@@ -21,21 +21,74 @@
                     callback(xhr.responseText);
                 }
             };
-            xhr.open(method,url,true);
+            xhr.open(method, url, true);
             xhr.send();
         }
-        function handle(text) {
-            if(text!=null){
-                let message=JSON.parse(text);
-                let head=document.getElementById("article-title");
-                head.textContent=message.head;
-                let content=document.getElementById("article-content");
-                content.innerHTML=message.content;
-            }else{
-                alert("error!");
+        function getGoodinfo(text) {
+            if (text !== null) {
+                if (text !== "nologin") {
+                    let arr = text = JSON.parse(text);
+                    let good = arr["good"];
+                    let goodimages = arr["goodimages"];
+                    let goodid = document.getElementById("goodid");
+                    goodid.textContent = id;
+                    let description = document.getElementById("good-description");
+                    description.textContent = good["des"];
+                    let price = document.getElementById("price");
+                    price.textContent = good["price"];
+                    let stock = document.getElementById("stock");
+                    stock.textContent = good["stock"];
+                    let cover = document.getElementById("zoomimg");
+                    cover.src = "../image/"+ good["cover"];
+                    let cover2 = document.getElementById("zoomimg2");
+                    cover2.src = "../image/"+ good["cover"];
+                    let title = document.getElementById("goodname");
+                    title.textContent = good["name"];
+                    let numebr = document.getElementById("buy-number");
+                    numebr.max=good["stock"];
+                    let imagelist = document.getElementById("split-image-list");
+                    for (let temp in goodimages){
+                        let goodimage =  imagelist.appendChild(document.createElement("div"));
+                        goodimage.className ="image";
+                        let goodimagea = goodimage.appendChild(document.createElement("a"));
+                        goodimagea.className = "cloud-zoom-gallery";
+                        let goodimageaimg = goodimagea.appendChild(document.createElement("img"));
+                        goodimageaimg.src = "../image/"+ goodimages[temp]["name"];
+                        let i =  "../image/"+ goodimages[temp]["name"]
+                        goodimageaimg.alt = "商品详细图";
+                        goodimagea.setAttribute("onclick","getvary(event)")
+                    }
+                } else {
+                    alert("您尚未登录！");
+                    window.location.href = "login.html";
+                }
             }
         }
 
+        function getvary(event) {
+            let img=event.target;
+            console.dir(img);
+            let large=document.getElementById("largeimg");
+            large.firstChild.src=large.lastElementChild.src=img.src;
+//            large.lastElementChild.src=img.src;
+            //large.firstChild.alt=large.lastElementChild.alt=img.alt;
+        }
+
+        function submitformbuy() {
+            let buynumber1 = document.getElementById("buy-number");
+
+            if(buynumber1.value === null){
+                alert("请填入或选择商品数量");
+                return false;
+            }
+            else if(buynumber1.value> buynumber1.max){
+                alert("购买数量超过产品的库存量");
+                return false;
+            }
+            else{
+            location.href = "submit_order.html?goodid="+id+"&buynumber="+buynumber1.value;
+            }
+        }
     </script>
 </head>
 
@@ -87,8 +140,8 @@
             </div>
             <div class="wrapper">
                 <div class="logo">
-                    <a href="/store/">
-
+                    <a href="/index.html">
+                        <span style="color: white;font-size: 20px;font-weight: 900">Striker</span>
                     </a>
                 </div>
                 <ul class="unstyled">
@@ -110,9 +163,9 @@
             <!-- Begin content-->
             <section id="content" class="clearfix">
 
-                <div id="product" class="soccerbible-magazine-issue-8-marcus-rashford-cover">
+              <div id="product" class="soccerbible-magazine-issue-8-marcus-rashford-cover">
 
-                    <div class="row clearfix">
+                <div class="row clearfix">
 
 
 
@@ -120,106 +173,13 @@
                         <div class="leftbar small-12 large-7">
                             <div class="desktop-product-images">
 
-                                <!-- Begin thumbnails -->
-                                <div class="thumbs small-2">
-
-
-                                    <div class="image split-images">
-                                        <a href="./SoccerBible Magazine第8期 - Marcus Rashford Cover - 足球圣经有限公司_files/issue_8_store_0001_MR_I8_large.jpg" class="cloud-zoom-gallery">
-                                            <img src="../image/issue_8_store_0001_MR_I8_large.jpg" alt="SoccerBible Magazine第8期 -  Marcus Rashford封面">
-                                        </a>
-                                    </div>
-
-
-
-                                    <div class="image split-images">
-                                        <a href="./SoccerBible Magazine第8期 - Marcus Rashford Cover - 足球圣经有限公司_files/issue_8_store_0002_inside_large.jpg" class="cloud-zoom-gallery">
-                                            <img src="../image/issue_8_store_0002_inside_large.jpg" alt="SoccerBible Magazine第8期 -  Marcus Rashford封面">
-                                        </a>
-                                    </div>
-
-
-
-                                    <div class="image split-images">
-                                        <a href="./SoccerBible Magazine第8期 - Marcus Rashford Cover - 足球圣经有限公司_files/issue_8_store_0022_inside_7_large.jpg" class="cloud-zoom-gallery">
-                                            <img src="../image/issue_8_store_0022_inside_7_large.jpg" alt="SoccerBible Magazine第8期 -  Marcus Rashford封面">
-                                        </a>
-                                    </div>
-
-
-
-                                    <div class="image split-images">
-                                        <a href="./SoccerBible Magazine第8期 - Marcus Rashford Cover - 足球圣经有限公司_files/issue_8_store_0020_inside_9_large.jpg" class="cloud-zoom-gallery">
-                                            <img src="../image/issue_8_store_0020_inside_9_large.jpg" alt="SoccerBible Magazine第8期 -  Marcus Rashford封面">
-                                        </a>
-                                    </div>
-
-
-
-                                    <div class="image split-images">
-                                        <a href="./SoccerBible Magazine第8期 - Marcus Rashford Cover - 足球圣经有限公司_files/issue_8_store_0019_inside_10_large.jpg" class="cloud-zoom-gallery">
-                                            <img src="../image/issue_8_store_0019_inside_10_large.jpg" alt="SoccerBible Magazine第8期 -  Marcus Rashford封面">
-                                        </a>
-                                    </div>
-
-
-
-                                    <div class="image split-images">
-                                        <a href="./SoccerBible Magazine第8期 - Marcus Rashford Cover - 足球圣经有限公司_files/issue_8_store_0008_inside_21_large.jpg" class="cloud-zoom-gallery">
-                                            <img src="../image/issue_8_store_0008_inside_21_large.jpg" alt="SoccerBible Magazine第8期 -  Marcus Rashford封面">
-                                        </a>
-                                    </div>
-
-
-
-                                    <div class="image split-images">
-                                        <a href="./SoccerBible Magazine第8期 - Marcus Rashford Cover - 足球圣经有限公司_files/issue_8_store_0014_inside_15_large.jpg" class="cloud-zoom-gallery">
-                                            <img src="../image/issue_8_store_0014_inside_15_large.jpg" alt="SoccerBible Magazine第8期 -  Marcus Rashford封面">
-                                        </a>
-                                    </div>
-
-
-
-                                    <div class="image split-images">
-                                        <a href="./SoccerBible Magazine第8期 - Marcus Rashford Cover - 足球圣经有限公司_files/issue_8_store_0016_inside_13_large.jpg" class="cloud-zoom-gallery">
-                                            <img src="../image/issue_8_store_0016_inside_13_large.jpg" alt="SoccerBible Magazine第8期 -  Marcus Rashford封面">
-                                        </a>
-                                    </div>
-
-
-
-                                    <div class="image split-images">
-                                        <a href="./SoccerBible Magazine第8期 - Marcus Rashford Cover - 足球圣经有限公司_files/issue_8_store_0009_inside_20_large.jpg" class="cloud-zoom-gallery">
-                                            <img src="../image/issue_8_store_0009_inside_20_large.jpg" alt="SoccerBible Magazine第8期 -  Marcus Rashford封面">
-                                        </a>
-                                    </div>
-
-
-
-                                    <div class="image split-images">
-                                        <a href="./SoccerBible Magazine第8期 - Marcus Rashford Cover - 足球圣经有限公司_files/issue_8_store_0021_inside_8_large.jpg" class="cloud-zoom-gallery">
-                                            <img src="../image/issue_8_store_0021_inside_8_large.jpg" alt="SoccerBible Magazine第8期 -  Marcus Rashford封面">
-                                        </a>
-                                    </div>
-
-
-
-                                    <div class="image split-images">
-                                        <a href="./SoccerBible Magazine第8期 - Marcus Rashford Cover - 足球圣经有限公司_files/issue_8_store_0028_inside_1_large.jpg" class="cloud-zoom-gallery">
-                                            <img src="../image/issue_8_store_0028_inside_1_large.jpg" alt="SoccerBible Magazine第8期 -  Marcus Rashford封面">
-                                        </a>
-                                    </div>
-
-
-
-                                    <div class="image split-images">
-                                        <a href="./SoccerBible Magazine第8期 - Marcus Rashford Cover - 足球圣经有限公司_files/issue_8_store_0027_inside_2_6200daae-1a5d-41e1-8a7a-9c61266019a8_large.jpg"
-                                           class="cloud-zoom-gallery">
-                                            <img src="../image/issue_8_store_0027_inside_2_6200daae-1a5d-41e1-8a7a-9c61266019a8_large.jpg" alt="SoccerBible Magazine第8期 -  Marcus Rashford封面">
-                                        </a>
-                                    </div>
-
-
+                                 <!--Begin thumbnails-->
+                                <div class="thumbs small-2" id="split-image-list">
+                                    <!--<div class="image split-images">-->
+                                        <!--<a onclick="" class="cloud-zoom-gallery">-->
+                                            <!--<img src="" alt="產品詳細圖">-->
+                                        <!--</a>-->
+                                    <!--</div>-->
                                 </div>
                                 <!-- End thumbnails -->
 
@@ -229,7 +189,7 @@
 
 
 
-                                    <span style="display: inline-block; max-width: 100%; position: relative; overflow: hidden;"><img src="../image/issue_8_store_0001_MR_I8_large.jpg" alt="SoccerBible Magazine第8期 -  Marcus Rashford封面" style="display: block;"><img src="../image/issue_8_store_0001_MR_I8_large.jpg" class="zoomImg" style="position: absolute; top: -250.893536121673px; left: -247.66860741444867px; opacity: 1; width: 1024px; height: 1024px; border: none; max-width: none; max-height: none;"></span>
+                                    <span id="largeimg" style="display: inline-block; max-width: 100%; position: relative; overflow: hidden;"><img src=""  id="zoomimg2" alt="产品封面图" style="display: block;"><img src="" id="zoomimg" class="zoomImg" style="position: absolute; top: -473.384030418251px; left: 0px; opacity: 0; width: 1024px; height: 1024px; border: none; max-width: none; max-height: none;"></span>
 
 
                                 </div>
@@ -238,53 +198,7 @@
                             <div class="mobile-product-images">
                                 <ul class="slides">
 
-                                    <li>
-                                        <img src="../image/issue_8_store_0001_MR_I8_large.jpg" alt="SoccerBible Magazine第8期 -  Marcus Rashford封面">
-                                    </li>
 
-                                    <li>
-                                        <img src="../image/issue_8_store_0002_inside_large.jpg" alt="SoccerBible Magazine第8期 -  Marcus Rashford封面">
-                                    </li>
-
-                                    <li>
-                                        <img src="../image/issue_8_store_0022_inside_7_large.jpg" alt="SoccerBible Magazine第8期 -  Marcus Rashford封面">
-                                    </li>
-
-                                    <li>
-                                        <img src="../image/issue_8_store_0020_inside_9_large.jpg" alt="SoccerBible Magazine第8期 -  Marcus Rashford封面">
-                                    </li>
-
-                                    <li>
-                                        <img src="../image/issue_8_store_0019_inside_10_large.jpg" alt="SoccerBible Magazine第8期 -  Marcus Rashford封面">
-                                    </li>
-
-                                    <li>
-                                        <img src="../image/issue_8_store_0008_inside_21_large.jpg" alt="SoccerBible Magazine第8期 -  Marcus Rashford封面">
-                                    </li>
-
-                                    <li>
-                                        <img src="../image/issue_8_store_0014_inside_15_large.jpg" alt="SoccerBible Magazine第8期 -  Marcus Rashford封面">
-                                    </li>
-
-                                    <li>
-                                        <img src="../image/issue_8_store_0016_inside_13_large.jpg" alt="SoccerBible Magazine第8期 -  Marcus Rashford封面">
-                                    </li>
-
-                                    <li>
-                                        <img src="../image/issue_8_store_0009_inside_20_large.jpg" alt="SoccerBible Magazine第8期 -  Marcus Rashford封面">
-                                    </li>
-
-                                    <li>
-                                        <img src="../image/issue_8_store_0021_inside_8_large.jpg" alt="SoccerBible Magazine第8期 -  Marcus Rashford封面">
-                                    </li>
-
-                                    <li>
-                                        <img src="../image/issue_8_store_0028_inside_1_large.jpg" alt="SoccerBible Magazine第8期 -  Marcus Rashford封面">
-                                    </li>
-
-                                    <li>
-                                        <img src="../image/issue_8_store_0027_inside_2_6200daae-1a5d-41e1-8a7a-9c61266019a8_large.jpg" alt="SoccerBible Magazine第8期 -  Marcus Rashford封面">
-                                    </li>
 
                                 </ul>
                             </div>
@@ -295,68 +209,47 @@
 
                         <!-- Begin description -->
                         <div class="rightbar small-12 large-5">
-                            <h1 class="title">
+                            <h1 class="title" id="goodname">
 
-                                SoccerBible Magazine第8期 - Marcus Rashford封面
+                                <!--SoccerBible Magazine第8期 - Marcus Rashford封面-->
 
                             </h1>
 
-                            <div class="description">
+                            <div class="description" style="height: 300px">
                                 <meta charset="utf-8">
-                                <p><span style="font-weight: 400;">当你有机会决定在你的肩膀上，你会玩哪个游戏。冒险冒险，拥抱机会或绊倒，消失在后台。“SoccerBible”杂志第8期是在这里和马库斯·拉什福德和亚历克斯·摩根（Alexander Morgan）进行的会议，我们庆祝那些探索未知的人，并且望尘莫及。</span>
-                                    <span style="font-weight: 400;"><br><br>
+                                <span>商品id：</span><span id="goodid"></span>
+                                <p style="font-weight: 400;" id="good-description"></p>
 
-                        在这个问题：
-                      <br><br>
-
-                        Gosha Rubchinskiy，Chronixx，Colette，太妃糖俱乐部。
-                        这个粉丝女孩，长住Boelyn，绿色Galactico，足球明信片，布鲁托斯康沃尔
-                      <br>
-
-                        星期天联盟，Tammy亚伯拉罕，亚历克斯·摩根，马库斯·拉什福德，莱顿·贝恩斯，米卡尔·安东尼奥，刘易斯·贝克，保罗·费尔南德斯，汤姆·格伦南，克里斯·伍德森林绿色流浪汉，&nbsp;
-
-                      </span><span style="font-weight: 400;">安全站立，J联赛球衣。<br></span>
-                                    <span
-                                            style="font-weight: 400;"><br>
-
-                        拥抱一个进步的心态，这个问题画了一个积极的变化。
-                        从星期天的联赛场景到安全站立的情书，从完美的足球酒吧到穿着朋克橄榄球的牛仔裤，我们编织了各个层面的游戏故事。
-
-                      </span>
-                                </p>
-                                <p dir="ltr">
-
-                                    封面由Lydia Garnett拍摄。
-                                    <strong>4月27日发货。</strong></p>
                             </div>
                             <form id="add-item-form" action="/store/cart/add" data-productid="9708733325" method="post" class="variants clearfix">
-                                <div class="select clearfix" style="display:none">
-                                    <div class="selector-wrapper"><select class="single-option-selector" data-option="option1" id="product-select-option-0"><option value="Default Title">默认标题</option></select></div>
-                                    <select id="product-select" name="id" data-productid="9708733325" style="display: none;">
+                                <!--<div class="select clearfix" style="display:none">-->
+                                    <!--<div class="selector-wrapper"><select class="single-option-selector" data-option="option1" id="product-select-option-0"><option value="Default Title">默认标题</option></select></div>-->
+                                    <!--<select id="product-select" name="id" data-productid="9708733325" style="display: none;">-->
 
-                                        <option value="36338423181" selected="selected">
+                                        <!--<option value="36338423181" selected="selected">-->
 
-                                            默认标题 - ￥10.00 GBP
+                                            <!--默认标题 - ￥10.00 GBP-->
 
-                                        </option>
+                                        <!--</option>-->
 
-                                    </select>
-                                </div>
+                                    <!--</select>-->
+                                <!--</div>-->
 
                                 <input id="quantity" type="hidden" name="quantity" value="1" class="tc item-quantity">
 
 
                                 <div class="purchase">
-                                    <h2 class="price 9708733325 " id="price-preview"><span class="money" data-currency-gbp="&amp;pound;10.00 GBP" data-currency="GBP">￥10.00元</span></h2>
+                                    <h2 class="price 9708733325 " id="price-preview">价格:&nbsp;&nbsp&nbsp;&nbsp;<span id="price"></span>&nbsp;&nbsp;元</h2>
+                                    <h2 class="price 9708733325 " id="stocks">库存:&nbsp;&nbsp&nbsp;&nbsp;<span id="stock"></span>&nbsp;&nbsp;件</h2>
+                                    <!--<span class="money" data-currency-gbp="&amp;pound;10.00 GBP" data-currency="GBP"></span>-->
+                                    <h2 class="price 9708733325 " id="buynumber">选购数量：<label for="buy-number" hidden></label><input type="number" id="buy-number" min="1" max="100" required="required" value="1"></h2>
+
                                 </div>
 
                                 <div class="purchase-section">
                                     <div class="purchase">
-
-
-                                        <input type="submit" id="add-to-cart" class="btn addtocart" name="add" value="添加到购物车">
-
-
+                                        <input type="button" id="buythis" class="btn addtocart" name="buy" value="购买" onclick="submitformbuy()">
+                                        <input type="submit" id="add-to-cart" class="btn addtocart" name="add" value="添加到购物车" onclick="">
                                     </div>
                                 </div>
                             </form>
@@ -369,261 +262,6 @@
                     </div>
 
                     <!-- Begin related product -->
-
-
-
-
-
-
-
-
-
-                    <div class="row products related-products">
-                        <h3 class="related-title">
-
-                            相关产品
-
-                        </h3>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                        <div class="product small-6 medium-3 ">
-
-
-
-                            <div class="image">
-                                <a href="/store/collections/soccer-bible-magazine/products/soccerbible-magazine-issue-8-alex-morgan-cover">
-                                    <img src="../image/issue_8_store_0000_AM_I8_large.jpg" alt="SoccerBible Magazine第8期 -  Alex Morgan封面">
-
-                                </a>
-                            </div>
-
-                            <div class="details">
-                                <a href="/store/collections/soccer-bible-magazine/products/soccerbible-magazine-issue-8-alex-morgan-cover"
-                                   class="clearfix">
-                                    <h4 class="title">
-
-                                        SoccerBible Magazine第8期 - Alex Morgan封面
-
-                                    </h4>
-
-                                    <span class="price">
-
-
-
-
-          <span class="money" data-currency-gbp="￥10.00 GBP" data-currency="GBP">￥10.00元</span>
-
-                    </span>
-
-                                    <span class="shopify-product-reviews-badge" data-id="9708717965"></span>
-                                </a>
-                            </div>
-                        </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                        <div class="product small-6 medium-3 ">
-
-
-
-                            <div class="image">
-                                <a href="/store/collections/soccer-bible-magazine/products/soccerbible-magazine-issue-7-ltd-edition-cover">
-                                    <img src="../image/soccerbible_issue_7_launch_buy_magazine_images_0018_issue7_cover_3_large.jpg" alt="SoccerBible杂志第7期 - 特别版封面">
-
-                                </a>
-                            </div>
-
-                            <div class="details">
-                                <a href="/store/collections/soccer-bible-magazine/products/soccerbible-magazine-issue-7-ltd-edition-cover"
-                                   class="clearfix">
-                                    <h4 class="title">
-
-                                        SoccerBible杂志第7期 - 特别版封面
-
-                                    </h4>
-
-                                    <span class="price">
-
-
-
-
-          <span class="money" data-currency-gbp="￥10.00 GBP" data-currency="GBP">￥10.00元</span>
-
-                    </span>
-
-                                    <span class="shopify-product-reviews-badge" data-id="8484047181"></span>
-                                </a>
-                            </div>
-                        </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                        <div class="product small-6 medium-3 sale-product">
-
-
-
-                            <div class="image">
-                                <a href="/store/collections/soccer-bible-magazine/products/soccerbible-magazine-issue-7-juan-mata-cover">
-                                    <img src="../image/soccerbible_issue_7_launch_buy_magazine_images_0017_issue7_cover_4_large.jpg" alt="SoccerBible杂志第7期 - 胡安·马塔封面">
-
-                                </a>
-                            </div>
-
-                            <div class="details">
-                                <a href="/store/collections/soccer-bible-magazine/products/soccerbible-magazine-issue-7-juan-mata-cover"
-                                   class="clearfix">
-                                    <h4 class="title">
-
-                                        SoccerBible杂志第7期 - 胡安·马塔封面
-
-                                    </h4>
-
-                                    <span class="price">
-
-
-
-
-            <del><span class="money" data-currency-gbp="￥10.00 GBP" data-currency="GBP">￥10.00元</span></del>
-
-                    <span class="money" data-currency-gbp="￥7.00 GBP" data-currency="GBP">￥7.00元</span>
-
-                    </span>
-
-                                    <span class="shopify-product-reviews-badge" data-id="8484024717"></span>
-                                </a>
-                            </div>
-                        </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                        <div class="product small-6 medium-3 sale-product">
-
-
-
-                            <div class="image">
-                                <a href="/store/collections/soccer-bible-magazine/products/soccerbible-magazine-issue-7-david-silva-cover">
-                                    <img src="../image/soccerbible_issue_7_launch_buy_magazine_images_0020_issue7_cover_1_large.jpg" alt="SoccerBible Magazine第7期 -  David Silva封面">
-
-                                </a>
-                            </div>
-
-                            <div class="details">
-                                <a href="/store/collections/soccer-bible-magazine/products/soccerbible-magazine-issue-7-david-silva-cover"
-                                   class="clearfix">
-                                    <h4 class="title">
-
-                                        SoccerBible Magazine第7期 - David Silva封面
-
-                                    </h4>
-
-                                    <span class="price">
-
-
-
-
-            <del><span class="money" data-currency-gbp="￥10.00 GBP" data-currency="GBP">￥10.00元</span></del>
-
-                    <span class="money" data-currency-gbp="￥7.00 GBP" data-currency="GBP">￥7.00元</span>
-
-                    </span>
-
-                                    <span class="shopify-product-reviews-badge" data-id="8484018061"></span>
-                                </a>
-                            </div>
-                        </div>
-
-
-
-
-
-
-
-                    </div>
-
-
-
-
-                </div>
-
-                <div style="display:none" id="preloading">
-
-                    <img src="../image/issue_8_store_0002_inside_large.jpg" alt="">
-
-                    <img src="../image/issue_8_store_0022_inside_7_large.jpg" alt="">
-
-                    <img src="../image/issue_8_store_0020_inside_9_large.jpg" alt="">
-
-                    <img src="../image/issue_8_store_0019_inside_10_large.jpg" alt="">
-
-                    <img src="../image/issue_8_store_0008_inside_21_large.jpg" alt="">
-
-                    <img src="../image/issue_8_store_0014_inside_15_large.jpg" alt="">
-
-                    <img src="../image/issue_8_store_0016_inside_13_large.jpg" alt="">
-
-                    <img src="../image/issue_8_store_0009_inside_20_large.jpg" alt="">
-
-                    <img src="../image/issue_8_store_0021_inside_8_large.jpg" alt="">
-
-                    <img src="../image/issue_8_store_0028_inside_1_large.jpg" alt="">
-
-                    <img src="../image/issue_8_store_0027_inside_2_6200daae-1a5d-41e1-8a7a-9c61266019a8_large.jpg" alt="">
-
                 </div>
             </section>
             <!-- End content-->

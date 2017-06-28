@@ -28,6 +28,7 @@ public class SubmitOrder extends HttpServlet {
         //        String email=(String)session.getAttribute("email");
         //        System.out.println(email);
         request.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json");
         String email = "2871348509@qq.com";
         int orderid = 0;
         String payment = null;

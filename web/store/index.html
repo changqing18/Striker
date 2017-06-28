@@ -4,6 +4,62 @@
     <meta charset="UTF-8">
     <title>Store:Striker</title>
 
+    <script>
+        const toJson = res => res.json();
+        async function getData(url) {
+            try {
+                return await fetch(url).then(toJson);
+            } catch (e) {
+                alert("error\n" + e);
+            }
+        }
+        function pageNo() {
+            let page = 1;
+            let requests = location.search;
+            if (requests.indexOf("?") !== -1) {
+                let str = requests.substr(1).split("&");
+                page = parseInt(str[0].split("=")[1]);
+            }
+            if (!isNaN(page)) {
+                getData("/servlet/GetGoodAll?page=" + page).then(showGood);
+            }
+        }
+        pageNo();
+        function showGood(data) {
+            for (let i = 0; i < data.length; i++) {
+                let product = document.createElement("div");
+                product.className = "product small-6 medium-3";
+                document.getElementById("products").appendChild(product);
+                let image = document.createElement("div");
+                image.className = "image";
+                product.appendChild(image);
+                let aHref = document.createElement("a");
+                image.appendChild(aHref);
+                let img = document.createElement("img");
+                aHref.appendChild(img);
+
+                let details = document.createElement("div");
+                details.className = "details";
+                product.appendChild(details);
+                let aHref1 = document.createElement("a");
+                aHref1.className = "clearfix";
+                details.appendChild(aHref1);
+                let h4 = document.createElement("h4");
+                h4.className = "title";
+                let span = document.createElement("span");
+                span.className = "price";
+                aHref1.appendChild(h4);
+                aHref1.appendChild(span);
+
+                aHref.href = aHref1.href = "/store/goodinfo.html?goodid=" + data[i]["id"];
+                h4.textContent = img.alt = data[i]["name"];
+                img.src = "/image/" + data[i]["cover"];
+                span.textContent = "￥" + data[i]["price"] + "元";
+            }
+        }
+
+    </script>
+
     <style type="text/css">
         :root #content > #right > .dose > .dosesingle,
         :root #content > #center > .dose > .dosesingle {
@@ -12,9 +68,9 @@
     </style>
     <link rel="stylesheet" href="../css/styles-scss-min.css">
     <style>
-        .image>a>img{
+        .image > a > img {
             width: 223px;
-            height:223px;
+            height: 223px;
         }
     </style>
 </head>
@@ -112,65 +168,6 @@
     </div>
     <!-- End wrapper -->
 </div>
-<script>
-    function ajax(method, url, callback) {
-        let xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                callback(xhr.responseText);
-            }
-        };
-        xhr.open(method, url, true);
-        xhr.send();
-    }
-    function showGood(text) {
-        if (text != null) {
-            let arr = JSON.parse(text);
-            for (let i = 0; i < arr.length; i++) {
-                let product = document.createElement("div");
-                product.className = "product small-6 medium-3";
-                document.getElementById("products").appendChild(product);
-                let image = document.createElement("div");
-                image.className = "image";
-                product.appendChild(image);
-                let aHref = document.createElement("a");
-                image.appendChild(aHref);
-                let img = document.createElement("img");
-                aHref.appendChild(img);
-
-                let details = document.createElement("div");
-                details.className = "details";
-                product.appendChild(details);
-                let aHref1 = document.createElement("a");
-                aHref1.className = "clearfix";
-                details.appendChild(aHref1);
-                let h4 = document.createElement("h4");
-                h4.className = "title";
-                let span = document.createElement("span");
-                span.className = "price";
-                aHref1.appendChild(h4);
-                aHref1.appendChild(span);
-
-                aHref.href = aHref1.href = "/store/goodinfo.html?goodid="+arr[i]["id"];
-                h4.textContent = img.alt = arr[i]["name"];
-                img.src = "/image/" + arr[i]["cover"];
-                span.textContent ="￥"+ arr[i]["price"]+"元";
-            }
-        }
-    }
-    function pageNo() {
-        let page = 1;
-        let requests = location.search;
-        if (requests.indexOf("?") !== -1) {
-            let str = requests.substr(1).split("&");
-            page = parseInt(str[0].split("=")[1]);
-        }
-        if (!isNaN(page)) {
-            ajax("GET", "/servlet/GetGoodAll?page=" + page, showGood)
-        }
-    }
-    pageNo();
-</script>
 </body>
 
 </html>
