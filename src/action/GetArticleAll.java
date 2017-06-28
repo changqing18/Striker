@@ -21,6 +21,7 @@ import java.util.List;
 public class GetArticleAll extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json");
         String page = request.getParameter("page");
         int start;
         if (page == null) start = 0;
@@ -29,6 +30,7 @@ public class GetArticleAll extends HttpServlet {
         SqlSessionFactory sqlSessionFactory = data.SessionFactoryUtil.getSqlSessionFactory();
         SqlSession sqlSession = sqlSessionFactory.openSession();
         List<ArticleInfo> articles = sqlSession.selectList("data.UserSqlMap.getArticleInfo", start);
+        sqlSession.close();
 
         Gson gson = new Gson();
         PrintWriter out = response.getWriter();

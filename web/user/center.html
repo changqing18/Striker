@@ -4,8 +4,53 @@
     <meta charset="UTF-8">
     <title>UserCenter</title>
 </head>
+<style>
+    ul, li {
+        list-style: none;
+    }
+
+    #address {
+        width: 600px;
+        margin: auto;
+    }
+
+    #nav {
+        width: 1210px;
+        height: 54px;
+        background: #393838;
+        margin: auto 61px;
+    }
+
+    #nav > ul > li {
+        vertical-align: middle;
+    }
+
+    #nav > ul > li > a {
+        display: block;
+        padding: 0 70px;
+        height: 54px;
+        line-height: 54px;
+        font-size: 20px;
+        text-decoration: none;
+        text-align: center;
+        color: #ccc;
+        float: left;
+    }
+
+    #nav > ul > li > a:hover {
+        color: #fff;
+    }
+</style>
 <body>
-<a href="password.html">修改密码</a>
+<section id="nav">
+
+    <ul>
+        <li><a href="password.html">修改密码</a></li>
+        <li><a href="address.html">添加地址</a></li>
+        <li><a href="../store/myorder.html">我的订单</a></li>
+        <li><a href="../store/cart.html">购物车</a></li>
+    </ul>
+</section>
 <table id="address">
     <tr>
         <th>姓名</th>
@@ -18,7 +63,6 @@
     </tr>
 
 </table>
-<a href="address.html">添加地址</a>
 <script>
     function ajax(method, url, callback) {
         let xhr = new XMLHttpRequest();
@@ -38,16 +82,16 @@
                 for (let i = 0; i < arr.length; i++) {
                     let tr = address.appendChild(document.createElement("tr"));
                     let ar = arr[i];
-                    let names=["id","name","phone","postcode","city","county","detail"];
-                    let td=tr.appendChild(document.createElement("td"));
-                    td.textContent=ar["id"];
-                    td.style.display="none";
-                    for(let i=1;i<names.length;i++){
-                        tr.appendChild(document.createElement("td")).textContent=ar[names[i]];
+                    let names = ["id", "name", "phone", "postcode", "city", "county", "detail"];
+                    let td = tr.appendChild(document.createElement("td"));
+                    td.textContent = ar["id"];
+                    td.style.display = "none";
+                    for (let i = 1; i < names.length; i++) {
+                        tr.appendChild(document.createElement("td")).textContent = ar[names[i]];
                     }
                     let but = tr.appendChild(document.createElement("td")).appendChild(document.createElement("button"));
                     but.textContent = "删除";
-                    but.setAttribute("onclick","deleteAddress(event)");
+                    but.setAttribute("onclick", "deleteAddress(event)");
                 }
             } else {
                 alert("您尚未登录！");
@@ -58,9 +102,9 @@
     ajax('GET', '/servlet/GetAddress', getAddress);
 
     function deleteAddress(event) {
-        let parent=event.target.parentNode.parentNode;
-        let first=parent.firstChild;
-        ajax("GET","/servlet/DeleteAddress?id="+first.textContent);
+        let parent = event.target.parentNode.parentNode;
+        let first = parent.firstChild;
+        ajax("GET", "/servlet/DeleteAddress?id=" + first.textContent);
         parent.parentNode.removeChild(parent);
     }
 </script>

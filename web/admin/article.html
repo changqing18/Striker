@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Striker:文章</title>
+    <link rel="stylesheet" type="text/css" href="../css/styles-min.css">
+    <script>
+        let article = 0;
+        let requests = location.search;
+        if (requests.indexOf("?") !== -1) {
+            let str = requests.substr(1).split("&");
+            article = parseInt(str[0].split("=")[1]);
+            ajax("GET", "/servlet/GetArticle?article=" + article, handle)
+        } else {
+            alert("error!");
+        }
+
+        function ajax(method, url, callback) {
+            let xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    callback(xhr.responseText);
+                }
+            };
+            xhr.open(method, url, true);
+            xhr.send();
+        }
+        function handle(text) {
+            if (text != null) {
+                let message = JSON.parse(text);
+                let head = document.getElementById("article-title");
+                head.textContent = message.head;
+                let content = document.getElementById("article-content");
+                content.innerHTML = message.content;
+            } else {
+                alert("error!");
+            }
+        }
+
+        function deleteArticle() {
+            let url="/servlet/DeleteArticle?article="+article;
+            let myRequest=new Request(url,{
+                method:"GET",
+                credentials:"same-origin"
+            });
+
+            getData(myRequest).then(data=>{
+                if(data.info==="success"){
+                    alert("success");
+                    window.location.href="allarticle.html";
+                }else{
+                    alert("error");
+                    window.location.reload();
+                }
+            })
+        }
+        const toJson = res => res.json();
+        async function getData(myRequest) {
+            try {
+                return await fetch(myRequest).then(toJson);
+            } catch (e) {
+                alert("error\n" + e);
+            }
+        }
+    </script>
+    <style>
+        #handel{
+            background: white;
+            height: 40px;
+            margin: auto;
+        }
+        #change{
+            text-decoration: none;
+            color: #3d3d3d;
+            height:35px;
+            width:80px;
+            text-align: center;
+            margin: 0 400px;
+        }
+
+        #but{
+            color: #3d3d3d;
+            height:35px;
+            width:80px;
+            text-align: center;
+            margin: auto;
+
+        }
+    </style>
+</head>
+
+<body class="article-page ArticleDetails" style="position: relative; min-height: 100%; top: 0px;">
+<section id="handel">
+    <button id="change" onclick="window.location.href='changearticle.html?article='+article">修改</button>
+    <button id="but" onclick="deleteArticle()">删除</button>
+</section>
+<div class="fullpage">
+
+    <div id="main" role="main" class="main">
+        <div class="row">
+            <div class="sidebar-first">
+                <div class="sidebar-first-inner ">
+                    <h1 id="article-title" class="article-title">
+                    </h1>
+                    <div id="article-content" class="article-content">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer>
+
+</footer>
+</body>
+<script>
+    let changeUrl="changearticle.html?article="+article;
+    document.getElementById("change").href=changeUrl;
+</script>
+</html>

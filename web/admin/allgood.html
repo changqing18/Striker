@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Store:Striker</title>
+
+    <script>
+
+        const toJson = res => res.json();
+        async function getData(myRequest) {
+            try {
+                return await fetch(myRequest).then(toJson);
+            } catch (e) {
+                alert("error\n" + e);
+            }
+        }
+
+        function pageNo() {
+            let page = 1;
+            let requests = location.search;
+            if (requests.indexOf("?") !== -1) {
+                let str = requests.substr(1).split("&");
+                page = parseInt(str[0].split("=")[1]);
+            }
+            if (!isNaN(page)) {
+                getData("/servlet/GetGoodAll?page=" + page).then(showGood);
+            }
+        }
+        pageNo();
+        function showGood(data) {
+            for (let i = 0; i < data.length; i++) {
+                let product = document.createElement("div");
+                product.className = "product small-6 medium-3";
+                document.getElementById("products").appendChild(product);
+                let image = document.createElement("div");
+                image.className = "image";
+                product.appendChild(image);
+                let aHref = document.createElement("a");
+                image.appendChild(aHref);
+                let img = document.createElement("img");
+                aHref.appendChild(img);
+
+                let details = document.createElement("div");
+                details.className = "details";
+                product.appendChild(details);
+                let aHref1 = document.createElement("a");
+                aHref1.className = "clearfix";
+                details.appendChild(aHref1);
+                let h4 = document.createElement("h4");
+                h4.className = "title";
+                let span = document.createElement("span");
+                span.className = "price";
+                aHref1.appendChild(h4);
+                aHref1.appendChild(span);
+                let but1=document.createElement("button");
+                but1.textContent="删除";
+                but1.setAttribute("onclick","deleteGood(event)");
+                but1.id=data[i]["id"];
+                let but2=document.createElement("button");
+                but2.textContent="修改";
+                but2.setAttribute("onclick","window.location.href='changegood.html?good="+data[i]["id"]+"'")
+                details.appendChild(but1);
+                details.appendChild(but2);
+
+                aHref.href = aHref1.href = "/store/goodinfo.html?goodid=" + data[i]["id"];
+                h4.textContent = img.alt = data[i]["name"];
+                img.src = "/image/" + data[i]["cover"];
+                span.textContent = "￥" + data[i]["price"] + "元";
+            }
+        }
+
+        function deleteGood(event) {
+            let but=event.target;
+            let url="/servlet/DeleteGood?good="+but.id;
+            let myRequest=new Request(url,{
+                method:"GET",
+                credentials:"same-origin"
+            });
+
+            getData(myRequest).then(data=>{
+                console.log(data);
+                if(data.info==="success"){
+                    alert("success");
+                    document.getElementById("products").removeChild(but.parentNode.parentNode)
+                }else{
+                    alert("error");
+                    window.location.reload();
+                }
+            })
+        }
+
+
+    </script>
+
+    <style type="text/css">
+        :root #content > #right > .dose > .dosesingle,
+        :root #content > #center > .dose > .dosesingle {
+            display: none !important;
+        }
+    </style>
+    <link rel="stylesheet" href="../css/styles-scss-min.css">
+    <style>
+        .image > a > img {
+            width: 223px;
+            height: 223px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="small-12 large-10 fl">
+    <div id="products" class="row products">
+    </div>
+</div>
+</body>
+
+</html>

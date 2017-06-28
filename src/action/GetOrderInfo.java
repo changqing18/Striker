@@ -22,6 +22,7 @@ public class GetOrderInfo extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json");
         String temp = request.getParameter("orderid");
         if (temp != null) {
             int id = Integer.parseInt(temp);
@@ -30,6 +31,7 @@ public class GetOrderInfo extends HttpServlet {
             Order order = sqlSession.selectOne("data.UserSqlMap.getOrderInfo", id);
             List<OrderSum> orderSum = sqlSession.selectList("data.UserSqlMap.getOrderSum",id);
             OrderInfo temp1=new OrderInfo(order,sqlSession.selectOne("data.UserSqlMap.getAddressbyId",order.getAddressid()),orderSum);
+            sqlSession.close();
             Gson gson = new Gson();
             PrintWriter out = response.getWriter();
             gson.toJson(temp1, out);

@@ -29,6 +29,7 @@ public class DeleteAddress extends HttpServlet {
                 SqlSession sqlSession = sqlSessionFactory.openSession();
                 sqlSession.delete("data.UserSqlMap.deleteAddress", addressId);
                 sqlSession.commit();
+                sqlSession.close();
             }
         }
     }

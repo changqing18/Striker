@@ -28,15 +28,17 @@ public class GetOrder extends HttpServlet {
           String email=(String)session.getAttribute("email");
 //        System.out.println(email);
         response.setCharacterEncoding("UTF-8");
-       // String email="2871348509@qq.com";
+        response.setContentType("application/json");
+        // String email="2871348509@qq.com";
         SqlSessionFactory sqlSessionFactory=data.SessionFactoryUtil.getSqlSessionFactory();
         SqlSession sqlSession=sqlSessionFactory.openSession();
         List<OrderAddress> orderAddresses=new ArrayList<>();
         List<Order> list=sqlSession.selectList("data.UserSqlMap.getOrder",email);
-        for (int i = 0; i < list.size(); i++) {
-            OrderAddress temp=new OrderAddress(list.get(i),sqlSession.selectOne("getAddressbyId",list.get(i).getAddressid()));
+        for (Order aList : list) {
+            OrderAddress temp = new OrderAddress(aList, sqlSession.selectOne("getAddressbyId", aList.getAddressid()));
             orderAddresses.add(temp);
         }
+        sqlSession.close();
         System.out.print(orderAddresses);
         Gson gson=new Gson();
         PrintWriter out=response.getWriter();

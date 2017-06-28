@@ -33,6 +33,7 @@ public class AddArticle extends HttpServlet {
             SqlSession sqlSession = sqlSessionFactory.openSession();
             sqlSession.insert("data.UserSqlMap.insertArticle", article);
             sqlSession.commit();
+            sqlSession.close();
             response.sendRedirect("/admin/addarticle.html");
         }else{
             response.sendRedirect("/return_info.html?info=41");

@@ -49,7 +49,7 @@
     <select id="getOrderSum" parameterType="int" resultType="model.OrderSum">
         SELECT goodid, count,sprice,orderid from ordersum WHERE orderid=#{id}
     </select>
-    <delete id="deleteAddress" parameterType="int">
+    <delete id="deleteAddress" parameterType="model.AddressId">
         delete from address where id=#{id} and email=#{email};
     </delete>
     <insert id="addGood" useGeneratedKeys="true" keyProperty="id" parameterType="model.Good">
@@ -104,4 +104,32 @@
     <delete id="deleteCartone" parameterType="int">
         DELETE FROM cart WHERE goodid = #{goodid};
     </delete>
+
+    <delete id="deleteArticle" parameterType="int">
+        delete from article where id=#{id};
+    </delete>
+    <delete id="deleteGood" parameterType="int">
+        delete from good where id=#{id};
+
+    </delete>
+    <delete id="deleteGoodImage" parameterType="int">
+        delete from goodimage where goodid=#{id};
+    </delete>
+    <select id="getGood" parameterType="int" resultType="model.Good">
+        select * from good where id=#{id};
+    </select>
+
+    <update id="updateGood" parameterType="model.Good">
+        update good set name=#{name} , price=#{price}, stock=#{stock},type=#{type},des=#{des}
+        where id=#{id};
+    </update>
+    <update id="delivery" parameterType="int">
+        update orderinfo set tag=1 where orderid=#{orderid};
+    </update>
+    <select id="getOrderAll" resultType="model.Order">
+        select * from orderinfo;
+    </select>
+    <select id="getUser" resultType="String">
+        select email from user;
+    </select>
 </mapper>

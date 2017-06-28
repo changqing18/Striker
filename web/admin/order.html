@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>我的订单</title>
+    <link rel="stylesheet" type="text/css" href="../css/styles-scss-min.css">
+    <script>
+        function ajax(method, url, callback) {
+            let xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    callback(xhr.responseText);
+                }
+            };
+            xhr.open(method, url, true);
+            xhr.send();
+        }
+        function getOrder(text) {
+            if (text != null) {
+                if (text != "nologin") {
+                    let arr = text = JSON.parse(text);
+                    let Order = document.getElementById("myorder");
+                    for (let i = 0; i < arr.length; i++) {
+                        let tr = Order.appendChild(document.createElement("tr"));
+                        let order=arr[i]["order"];
+                        let orderNames=["orderid","payornot","dat","memo","sumprice","tag"];
+                        for(let i=0;i<orderNames.length;i++){
+                            tr.appendChild(document.createElement("td")).textContent = order[orderNames[i]];
+                        }
+                        let address1=arr[i]["address"];
+                        let receiver = ["name","phone"];
+                        for(let i=0;i<receiver.length;i++){
+                            tr.appendChild(document.createElement("td")).textContent = address1[receiver[i]];
+                        }
+                        //let addressname = ["province","city","county","detail"];
+                        //let Address="";
+                        //for(let i=0;i<addressname.length;i++){
+                        //   Address=Address+address[addressname[i]];
+                        //}
+                        // tr.appendChild(document.createElement("td")).textContent = Address;
+                        let but = tr.appendChild(document.createElement("td"));
+                        let a = but.appendChild(document.createElement("a"))
+                        a.textContent = "查看详情";
+                        a.href="order_info.html?id="+order["orderid"];
+                    }
+                }
+                else {
+                    alert("您尚未登录！");
+                    window.location.href = "login.html";
+                }
+            }
+
+        }
+        ajax('GET', '/servlet/getorder', getOrder);
+    </script>
+</head>
+
+<body style="position: relative; min-height: 100%; top: 0px;">
+<div id="navigation">
+    <div class="search-bar"></div>
+    <nav>
+        <ul>
+            <li>
+                <a>
+
+                    最新
+
+                </a>
+            </li>
+            <li>
+                <a href="">
+
+                    社论
+
+                </a>
+            </li>
+            <li class="sale">
+                <a href="/store/collections/sale">
+
+                    拍卖
+
+                </a>
+            </li>
+            <li class="external">
+                <a href="/">
+
+                    主站点
+
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<div id="page">
+    <div class="header">
+        <div class="main">
+            <div class="nav-burger-container">
+                <a class="nav-burger" href="">
+                    <span class="top-bar"></span>
+                    <span class="middle-bar"></span>
+                    <span class="bottom-bar"></span>
+                </a>
+            </div>
+            <div class="wrapper">
+                <div class="logo">
+                    <a href="/index.html" >
+                        <span style="color: white;font-size: 20px;font-weight: 900">Striker</span>
+                    </a>
+                </div>
+                <ul class="unstyled">
+                    <li id="cart-target" class="toolbar-cart ">
+                        <a href="/store/cart" class="cart" title="购物车">
+                            <span class="icon-cart"></span>
+                            <span id="cart-count">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Begin wrapper -->
+    <div id="transparency" class="wrapper clearfix">
+        <div class="row p0">
+
+            <!-- Begin content-->
+            <section id="content" class="clearfix">
+
+                <div id="product" class="soccerbible-magazine-issue-8-marcus-rashford-cover">
+
+                    <div class="row clearfix">
+
+
+
+
+                        <!-- Begin related product -->
+                        <div class="row products related-products">
+                            <h3 class="related-title" style="font-size: 45px">
+                                我的订单
+                            </h3>
+                        </div>
+                        <div>
+                            <table id="myorder">
+                                <tr>
+                                    <td>订单号</td>
+                                    <td>支付状态</td>
+                                    <td>下单日期</td>
+                                    <td>备注信息</td>
+                                    <td>总价</td>
+                                    <td>发货状态</td>
+                                    <td>联系人</td>
+                                    <td>电话</td>
+                                    <!--<th>地址</th>-->
+                                    <td>操作</td>
+                                </tr>
+
+                            </table>
+                        </div>
+                    </div>
+                    <!-- End wrapper -->
+                </div>
+            </section>
+        </div>
+    </div>
+</div></body>
+
+</html>

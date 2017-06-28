@@ -20,6 +20,7 @@ public class Login extends HttpServlet {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         String getPassword = sqlSession.selectOne("data.UserSqlMap.getPassword", email);
         sqlSession.close();
+        sqlSession.close();
         if (getPassword == null) {
             response.sendRedirect("/return_info.html?info=31");//不存在该用户
         } else if (!password.equals(getPassword)) {

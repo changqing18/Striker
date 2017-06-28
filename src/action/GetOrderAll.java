@@ -1,7 +1,8 @@
 package action;
 
 import com.google.gson.Gson;
-import model.Article;
+import model.Order;
+import model.OrderAddress;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
@@ -10,28 +11,36 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Created by 28713 on 2017/6/11.
+ * Created by 28713 on 2017/6/28.
  */
-@WebServlet(value = "/servlet/GetArticle", name = "GetArticle")
-public class GetArticle extends HttpServlet {
+@WebServlet(value = "/servlet/GetOrderAll", name = "GetOrderAll")
+public class GetOrderAll extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
-        String temp = request.getParameter("article");
-        if (temp != null) {
-            int id = Integer.parseInt(temp);
+        HttpSession session = request.getSession();
+        String admin = (String) session.getAttribute("admin");
+        if (admin != null) {
             SqlSessionFactory sqlSessionFactory = data.SessionFactoryUtil.getSqlSessionFactory();
             SqlSession sqlSession = sqlSessionFactory.openSession();
-            Article article = sqlSession.selectOne("data.UserSqlMap.getArticle", id);
+            List<OrderAddress> orderAddresses = new ArrayList<>();
+            List<Order> list = sqlSession.selectList("data.UserSqlMap.getOrderAll");
+            for (Order aList : list) {
+                OrderAddress temp = new OrderAddress(aList, sqlSession.selectOne("getAddressbyId", aList.getAddressid()));
+                orderAddresses.add(temp);
+            }
             sqlSession.close();
+            System.out.print(orderAddresses);
             Gson gson = new Gson();
             PrintWriter out = response.getWriter();
-            gson.toJson(article, out);
+            gson.toJson(orderAddresses, out);
             out.close();
         }
     }

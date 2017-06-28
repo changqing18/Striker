@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>所有用户</title>
+</head>
+<body>
+<table id="allUser">
+
+</table>
+<script>
+    const toJson = res => res.json();
+    async function getData(myRequest) {
+        try {
+            return await fetch(myRequest).then(toJson);
+        } catch (e) {
+            alert("error\n" + e);
+        }
+    }
+    function getAll() {
+        let myRequest = new Request('/servlet/GetUser', {
+            method: "GET",
+            credentials: "same-origin"
+        });
+        getData(myRequest).then(data => {
+            for (let i = 0; i < data.length; i++) {
+                console.log(data[i]);
+                let tr = document.createElement("tr");
+                let but = document.createElement("button");
+                but.textContent = data[i];
+                but.setAttribute("onclick", "handel(event)");
+                tr.appendChild(but);
+                document.getElementById("allUser").appendChild(tr);
+            }
+        });
+    }
+    getAll();
+    function handel(event) {
+        let email = event.target.textContent;
+        let myRequest = new Request("/servlet/GetRight?email="+email,{
+            method: "GET",
+            credentials: "same-origin"
+        });
+        getData(myRequest).then(data => {
+            if (data.info === "success")
+                window.location.href = "order.html";
+            else
+                alert("error");
+        });
+    }
+</script>
+</body>
+</html>
