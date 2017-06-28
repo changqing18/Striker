@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>我的订单</title>
+    <link rel="stylesheet" type="text/css" href="../css/styles-scss-min.css">
+    <script>
+        function ajax(method, url, callback) {
+            let xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    callback(xhr.responseText);
+                }
+            };
+            xhr.open(method, url, true);
+            xhr.send();
+        }
+
+        ajax('GET', '/servlet/getcart', getCart);
+        function comculate() {
+            let a = document.getElementsByName("numberlist");
+            let b = document.getElementsByName("onepricelist");
+            let c = document.getElementsByName("spricelist");
+            let d = document.getElementById("sumprice");
+            d.value = 0;
+            for (let i=0;i<c.length;i++){
+                c[i].value = a[i].value * b[i].value;
+                d.value = parseInt(d.value) + parseInt(c[i].value);
+            }
+        }
+        function getCart(text) {
+            if (text != "nologin") {
+                if (text != null) {
+                    let arr = text = JSON.parse(text);
+                    let good =arr["cartShows"];
+                    let addresslist = arr["addresslist"];
+                    let sumprice2 = 0;
+                    for(let i in good){
+                        let table = document.getElementById("mycart");
+                        let tr = table.appendChild(document.createElement("tr"));
+                        let td1 = tr.appendChild(document.createElement("td"));
+                        let input1 = td1.appendChild(document.createElement("input"));
+                        input1.border="0";
+                        input1.readOnly = "readOnly";
+                        input1.value = good[i]["good"]["id"];
+                        input1.name = "goodidlist";
+                        let td2 = tr.appendChild(document.createElement("td"));
+                        td2.textContent = good[i]["good"]["name"];
+                        let td3 = tr.appendChild(document.createElement("td"));
+                        let input2 = td3.appendChild(document.createElement("input"));
+                        input2.type = "number";
+                        input2.max = good[i]["good"]["stock"];
+                        input2.min = 0;
+                        input2.setAttribute("onblur","comculate()");
+                        input2.value = good[i]["number"];
+                        input2.name = "numberlist";
+                        let td5 = tr.appendChild(document.createElement("td"));
+                        let input4 = td5.appendChild(document.createElement("input"));
+                        input4.border = "0";
+                        input4.value = good[i]["good"]["price"];
+                        input4.readOnly = "readOnly";
+                        input4.name = "onepricelist";
+                        let td6 = tr.appendChild(document.createElement("td"));
+                        let input3 = td6.appendChild(document.createElement("input"));
+                        input3.border="0";
+                        input3.readOnly = "readOnly";
+                        input3.name = "spricelist";
+                        input3.value = good[i]["good"]["price"]*good[i]["number"];
+                        sumprice2 = sumprice2 + good[i]["good"]["price"] * good[i]["number"];
+                        let td4 = tr.appendChild(document.createElement("td"));
+                        let a = td4.appendChild(document.createElement("a"));
+                        a.textContent = "删除";
+                        a.href="/servlet/deletecart?goodid="+good[i]["good"]["id"];;
+                    }
+                    let sumprice = document.getElementById("sumprice");
+                    sumprice.value = sumprice2;
+                    let orderinfo = document.getElementById("orderinfo");
+                    let addressname = ["province","city","county","detail"];
+                    for(let k in addresslist){
+                        let Address="";
+                        for (let j in addressname){
+                            Address=Address+addresslist[k][addressname[j]];
+                        }
+                        let tr = orderinfo.appendChild(document.createElement("tr"));
+                        let td1 = tr.appendChild(document.createElement("td"));
+                        td1.colSpan=2;
+                        let label1 = td1.appendChild(document.createElement("label"));
+                        let radio1 = label1.appendChild(document.createElement("input"));
+                        radio1.type = "radio";
+                        radio1.name = "address";
+                        radio1.value = addresslist[k]["id"];
+                        radio1.checked="checked";
+                        let td2 = tr.appendChild(document.createElement("td"));
+                        td2.colSpan=2;
+                        td2.textContent = addresslist[k]["name"];
+                        let td3 = tr.appendChild(document.createElement("td"));
+                        td3.colSpan=2;
+                        td3.textContent = addresslist[k]["phone"];
+                        let td4 = tr.appendChild(document.createElement("td"));
+                        td4.colSpan=6;
+                        td4.textContent = Address;
+                    }
+                    }
+                }
+                else {
+                    alert("您尚未登录！");
+                    window.location.href = "login.html";
+                }
+            }
+
+    </script>
+</head>
+
+<body style="position: relative; min-height: 100%; top: 0px;">
+<div id="navigation">
+    <div class="search-bar"></div>
+    <nav>
+        <ul>
+            <li>
+                <a>
+
+                    最新
+
+                </a>
+            </li>
+            <li>
+                <a href="">
+
+                    社论
+
+                </a>
+            </li>
+            <li class="sale">
+                <a href="/store/collections/sale">
+
+                    拍卖
+
+                </a>
+            </li>
+            <li class="external">
+                <a href="/">
+
+                    主站点
+
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<div id="page">
+    <div class="header">
+        <div class="main">
+            <div class="nav-burger-container">
+                <a class="nav-burger" href="">
+                    <span class="top-bar"></span>
+                    <span class="middle-bar"></span>
+                    <span class="bottom-bar"></span>
+                </a>
+            </div>
+            <div class="wrapper">
+                <div class="logo">
+                    <a href="/index.html" >
+                        <span style="color: white;font-size: 20px;font-weight: 900">Striker</span>
+                    </a>
+                </div>
+                <ul class="unstyled">
+                    <li id="cart-target" class="toolbar-cart ">
+                        <a href="/store/cart" class="cart" title="购物车">
+                            <span class="icon-cart"></span>
+                            <span id="cart-count">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Begin wrapper -->
+    <div id="transparency" class="wrapper clearfix">
+        <div class="row p0">
+
+            <!-- Begin content-->
+            <section id="content" class="clearfix">
+
+                <div id="product" class="soccerbible-magazine-issue-8-marcus-rashford-cover">
+
+                    <div class="row clearfix">
+
+
+
+
+                        <!-- Begin related product -->
+                        <div class="row products related-products">
+                            <h3 class="related-title" style="font-size: 45px">
+                                购物车
+                            </h3>
+                        </div>
+                        <div>
+                            <form method="post" action="/servlet/addcartorder">
+                                <table id="mycart">
+                                    <tr>
+                                    <th width="20%">商品ID</th>
+                                    <th width="30%">商品名称</th>
+                                    <th width="10%">数量</th>
+                                    <th width="10%">商品单价</th>
+                                    <th width="20%">商品总价</th>
+                                    <th width="10%">操作</th>
+                                    <!--<th>地址</th>-->
+                                    </tr>
+                                </table>
+                                <table id="orderinfo">
+                                    <tr>
+                                        <td colspan="8"></td>
+                                        <td colspan="2" style="font-weight: 600"><label for="sumprice">订单总价</label></td>
+                                        <td colspan="2" ><input style="border: 0" id="sumprice" name="sumprice" readonly></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="font-weight: 600"><label for="memo">备注信息</label></td>
+                                        <td colspan="10" ></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"></td>
+                                        <td colspan="10">
+                                            <textarea id="memo" name="memo" style="width: 600px;height: 150px"></textarea>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"></td>
+                                        <td colspan="2" style="font-weight: 600">收货人</td>
+                                        <td colspan="2" style="font-weight: 600">联系电话</td>
+                                        <td colspan="6" style="font-weight: 600">收货地址</td>
+                                    </tr>
+                                </table>
+                                <table>
+                                    <tr>
+                                        <td width="80%"></td>
+                                        <td width="10%"><input type="submit" value="提交订单"></td>
+                                        <td width="10%"></td>
+                                    </tr>
+                                </table>
+
+                            </form>
+                        </div>
+                    </div>
+                    <!-- End wrapper -->
+                </div>
+            </section>
+        </div>
+    </div>
+</div></body>
+</html>

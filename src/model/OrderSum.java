@@ -6,14 +6,14 @@ package model;
 public class OrderSum {
     private int goodid;
     private int count;
-    private int orderid;
     private double sprice;
+    private int orderid;
 
-    public OrderSum(int goodid, int count, int orderid, double sprice) {
+    public OrderSum(int goodid, int count, double sprice, int orderid) {
         this.goodid = goodid;
         this.count = count;
-        this.orderid = orderid;
         this.sprice = sprice;
+        this.orderid = orderid;
     }
 
     public int getGoodid() {

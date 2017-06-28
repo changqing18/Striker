@@ -64,4 +64,8 @@ public class Order {
     public double getSumprice() {
         return sumprice;
     }
+
+    public void setOrderid(int orderid) {
+        this.orderid = orderid;
+    }
 }

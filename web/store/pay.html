@@ -2,9 +2,176 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>我的订单</title>
+    <link rel="stylesheet" type="text/css" href="../css/styles-scss-min.css">
+
 </head>
-<body>
-成功购买了！
-</body>
+
+<body style="position: relative; min-height: 100%; top: 0px;">
+<div id="navigation">
+    <div class="search-bar"></div>
+    <nav>
+        <ul>
+            <li>
+                <a>
+
+                    最新
+
+                </a>
+            </li>
+            <li>
+                <a href="">
+
+                    社论
+
+                </a>
+            </li>
+            <li class="sale">
+                <a href="/store/collections/sale">
+
+                    拍卖
+
+                </a>
+            </li>
+            <li class="external">
+                <a href="/">
+
+                    主站点
+
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<div id="page">
+    <div class="header">
+        <div class="main">
+            <div class="nav-burger-container">
+                <a class="nav-burger" href="">
+                    <span class="top-bar"></span>
+                    <span class="middle-bar"></span>
+                    <span class="bottom-bar"></span>
+                </a>
+            </div>
+            <div class="wrapper">
+                <div class="logo">
+                    <a href="/index.html" >
+                        <span style="color: white;font-size: 20px;font-weight: 900">Striker</span>
+                    </a>
+                </div>
+                <ul class="unstyled">
+                    <li id="cart-target" class="toolbar-cart ">
+                        <a href="/store/cart" class="cart" title="购物车">
+                            <span class="icon-cart"></span>
+                            <span id="cart-count">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Begin wrapper -->
+    <div id="transparency" class="wrapper clearfix">
+        <div class="row p0">
+
+            <!-- Begin content-->
+            <section id="content" class="clearfix">
+
+                <div id="product" class="soccerbible-magazine-issue-8-marcus-rashford-cover">
+
+                    <div class="row clearfix">
+
+
+
+
+                        <!-- Begin related product -->
+                        <div class="row products related-products">
+                            <h3 class="related-title" style="font-size: 45px">
+                                订单详情
+                            </h3>
+                        </div>
+                        <div>
+                            <form method="post" action="/servlet/payorder">
+                                <table id="orderinfo">
+                                    <tr>
+                                        <td colspan="2"></td>
+                                        <td colspan="2" style="font-weight: 600"><label for="orderid">订单ID</label></td>
+                                        <td colspan="2"><input readonly type="text" style="border: 0" id="orderid" name="orderid" value=""></td>
+                                        <td colspan="6"></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="8"></td>
+                                        <td colspan="2" style="font-weight: 600"><label for="sumprice">订单总价</label></td>
+                                        <td colspan="2" ><input type="text" style="border: 0" id="sumprice" name="sumprice" readonly value=""></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"></td>
+                                        <td colspan="2" style="font-weight: 600">支付方式</td>
+                                        <td colspan="8" ></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="font-weight: 600">第三方支付</td>
+                                        <td colspan="10"></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="text-align: center;width: 218.5px"><label><input checked type="radio" name="payment" value="0"></label></td>
+                                        <td colspan="2" style="text-align: center;width: 218.5px">支付宝</td>
+                                        <td colspan="2" style="text-align: center;width: 218.5px"><label><input type="radio" name="payment" value="1"></label></td>
+                                        <td colspan="2" style="text-align: center;width: 218.5px">微信支付</td>
+                                        <td colspan="2" style="text-align: center;width: 218.5px"><label><input type="radio" name="payment" value="2"></label></td>
+                                        <td colspan="2" style="text-align: center;width: 218.5px">京东钱包</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="font-weight: 600">银行卡支付</td>
+                                        <td colspan="10"></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="text-align: center;width: 218.5px"><label><input type="radio" name="payment" value="3"></label></td>
+                                        <td colspan="2" style="text-align: center;width: 218.5px">中国银行</td>
+                                        <td colspan="2" style="text-align: center;width: 218.5px"><label><input type="radio" name="payment" value="4"></label></td>
+                                        <td colspan="2" style="text-align: center;width: 218.5px">中国建设银行</td>
+                                        <td colspan="2" style="text-align: center;width: 218.5px"><label><input type="radio" name="payment" value="5"></label></td>
+                                        <td colspan="2" style="text-align: center;width: 218.5px">中国工商银行</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="text-align: center;width: 218.5px"><label><input type="radio" name="payment" value="6"></label></td>
+                                        <td colspan="2" style="text-align: center;width: 218.5px">中国农业银行</td>
+                                        <td colspan="2" style="text-align: center;width: 218.5px"><label><input type="radio" name="payment" value="7"></label></td>
+                                        <td colspan="2" style="text-align: center;width: 218.5px">北京银行</td>
+                                        <td colspan="2" style="text-align: center;width: 218.5px"><label><input type="radio" name="payment" value="8"></label></td>
+                                        <td colspan="2" style="text-align: center;width: 218.5px">招商银行</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="9"></td>
+                                        <td><input type="button" onclick="window.location.href='myorder.html'" value="算了算了"></td>
+                                        <td></td>
+                                        <td style="width: 200px;height: 80px"> <input type="submit" value="支付"></td>
+                                    </tr>
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- End wrapper -->
+                </div>
+            </section>
+        </div>
+    </div>
+</div></body>
+<script  language="JavaScript">
+    let id = 0;
+    let sprice = 0;
+    let requests = location.search;
+    if (requests.indexOf("?") !== -1) {
+        let str = requests.substr(1).split("&");
+        sprice = parseInt(str[0].split("=")[1]);
+        orderid = parseInt(str[1].split("=")[1]);
+        let sumprice1 = document.getElementById("sumprice");
+        sumprice1.value = sprice;
+        let order1 = document.getElementById("orderid");
+        order1.value = orderid;
+    } else {
+        alert("error!");
+    }
+</script>
 </html>
