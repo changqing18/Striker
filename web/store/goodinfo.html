@@ -49,7 +49,7 @@
                     let numebr = document.getElementById("buy-number");
                     numebr.max=good["stock"];
                     let imagelist = document.getElementById("split-image-list");
-                    for (let temp in goodimages){
+                    for (let temp in goodimages){                              //遍历图片对象
                         let goodimage =  imagelist.appendChild(document.createElement("div"));
                         goodimage.className ="image";
                         let goodimagea = goodimage.appendChild(document.createElement("a"));
@@ -83,7 +83,7 @@
                 alert("请填入或选择商品数量");
                 return false;
             }
-            else if(buynumber1.value> buynumber1.max){
+            else if(parseInt(buynumber1.value)> buynumber1.max){
                 alert("购买数量超过产品的库存量");
                 return false;
             }
