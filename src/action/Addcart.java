@@ -18,7 +18,7 @@ import java.io.PrintWriter;
 /**
  * Created by peter on 2017/6/24.
  */
-@WebServlet(name = "Addcart",value = "/servle/addcart")
+@WebServlet(name = "Addcart",value = "/servlet/addcart")
 public class Addcart extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
