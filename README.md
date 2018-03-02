@@ -3,7 +3,7 @@ Striker<br>
 这个项目是关于一个足球的资讯相关，以及相关商品购买的网站。<br>
 项目写的十分粗糙，只完成了基础功能，以及由于我和同学两人都不太会前端，所以界面比较粗糙。<br>
 这个项目使用了前后端分离，之前写的都是jsp，这算个尝试。没用spring框架，只用了mybaits<br>
-来管理数据库。<br。
+来管理数据库。<br>
 环境是，Java 1.8.0_131 Tomcat 8.5.15 mysql<br>
 其他Jar包，分别为mybatis-3.4.4.jar mysql-connerctor-java-5.140-bin.jar <br>
 commons-fieupload-1.3.2.jar commons-io-2.5.jar<br>
