@@ -15,6 +15,7 @@
             xhr.open(method, url, true);
             xhr.send();
         }
+
         function getOrder(text) {
             if (text != null) {
                 if (text != "nologin") {
@@ -22,15 +23,15 @@
                     let Order = document.getElementById("myorder");
                     for (let i = 0; i < arr.length; i++) {
                         let tr = Order.appendChild(document.createElement("tr"));
-                        let order=arr[i]["order"];
-                        let orderNames=["orderid","payornot","dat","memo","sumprice","tag"];
-                        for(let i=0;i<orderNames.length;i++){
-                            tr.appendChild(document.createElement("td")).textContent = order[orderNames[i]];
+                        let order = arr[i]["order"];
+                        let orderNames = ["orderid", "payornot", "dat", "memo", "sumprice", "tag"];
+                        for (let j = 0; j < orderNames.length; j++) {
+                            tr.appendChild(document.createElement("td")).textContent = order[orderNames[j]];
                         }
-                        let address1=arr[i]["address"];
-                        let receiver = ["name","phone"];
-                        for(let i=0;i<receiver.length;i++){
-                            tr.appendChild(document.createElement("td")).textContent = address1[receiver[i]];
+                        let address1 = arr[i]["address"];
+                        let receiver = ["name", "phone"];
+                        for (let j = 0; j < receiver.length; j++) {
+                            tr.appendChild(document.createElement("td")).textContent = address1[receiver[j]];
                         }
                         //let addressname = ["province","city","county","detail"];
                         //let Address="";
@@ -39,18 +40,19 @@
                         //}
                         // tr.appendChild(document.createElement("td")).textContent = Address;
                         let but = tr.appendChild(document.createElement("td"));
-                        let a = but.appendChild(document.createElement("a"))
+                        let a = but.appendChild(document.createElement("a"));
                         a.textContent = "查看详情";
-                        a.href="order_info.html?id="+order["orderid"];
+                        a.href = "order_info.html?id=" + order["orderid"];
                     }
                 }
                 else {
                     alert("您尚未登录！");
-                    window.location.href = "login.html";
+                    window.location.href = "/user/login.html";
                 }
             }
 
         }
+
         ajax('GET', '/servlet/getorder', getOrder);
     </script>
 </head>
@@ -62,30 +64,22 @@
         <ul>
             <li>
                 <a>
-
                     最新
-
                 </a>
             </li>
             <li>
                 <a href="">
-
                     社论
-
                 </a>
             </li>
             <li class="sale">
                 <a href="/store/collections/sale">
-
                     拍卖
-
                 </a>
             </li>
             <li class="external">
                 <a href="/">
-
                     主站点
-
                 </a>
             </li>
         </ul>
@@ -103,7 +97,7 @@
             </div>
             <div class="wrapper">
                 <div class="logo">
-                    <a href="/index.html" >
+                    <a href="/index.html">
                         <span style="color: white;font-size: 20px;font-weight: 900">Striker</span>
                     </a>
                 </div>
@@ -129,8 +123,6 @@
                 <div id="product" class="soccerbible-magazine-issue-8-marcus-rashford-cover">
 
                     <div class="row clearfix">
-
-
 
 
                         <!-- Begin related product -->
@@ -162,6 +154,7 @@
             </section>
         </div>
     </div>
-</div></body>
+</div>
+</body>
 
 </html>

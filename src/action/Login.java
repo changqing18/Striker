@@ -28,13 +28,15 @@ public class Login extends HttpServlet {
         } else {
             Cookie[] cookies = request.getCookies();
             String preUrl = "/index.html";
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("preurl")) {
-                    preUrl = cookie.getValue();
-                    cookie.setMaxAge(0);
-                    cookie.setPath("/");
-                    response.addCookie(cookie);
-                    break;
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    if (cookie.getName().equals("preurl")) {
+                        preUrl = cookie.getValue();
+                        cookie.setMaxAge(0);
+                        cookie.setPath("/");
+                        response.addCookie(cookie);
+                        break;
+                    }
                 }
             }
             Cookie cookie = new Cookie("user", email);
